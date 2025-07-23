@@ -47,7 +47,7 @@ const Contacto = () => {
   };
 
   return (
-    <section id="contacto" className="py-12 px-4 sm:px-8 bg-gray-900 text-white relative">
+    <section id="contacto" className="py-12 px-4 sm:px-8 bg-gray-700 text-white relative">
       <div className="max-w-xl mx-auto">
         <h2 className="text-2xl font-bold mb-4 text-center">Contáctame</h2>
 
@@ -92,8 +92,8 @@ const Contacto = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`flex items-center justify-center gap-2 ${
-              loading ? 'bg-purple-400 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700'
+            className={`flex items-center justify-center gap-2 bg-teal-400 ${
+              loading ? 'bg-teal-900 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700'
             } text-white font-semibold py-2 px-4 rounded transition`}
           >
             {loading ? 'Enviando...' : (

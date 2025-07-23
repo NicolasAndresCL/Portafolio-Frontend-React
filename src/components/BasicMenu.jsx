@@ -37,28 +37,28 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={handleClose}><a
                 href="#Sobre-mi"
-                className="rounded-md"
+                className="nav-item rounded-md"
               >
                 {' '}
                 Sobre mí{' '}
               </a></MenuItem>
         <MenuItem onClick={handleClose}><a
                 href="#Proyectos"
-                className="rounded-md"
+                className="nav-item rounded-md"
               >
                 {' '}
                 Projects{' '}
               </a></MenuItem>
         <MenuItem onClick={handleClose}><a
                 href="#Habilidades"
-                className="rounded-md "
+                className="nav-item rounded-md "
               >
                 {' '}
                 Skills{' '}
               </a></MenuItem>
         <MenuItem onClick={handleClose}><a
                 href="#Contactame"
-                className="rounded-md"
+                className="nav-item rounded-md"
               >
                 {' '}
                 Contacto{' '}
@@ -67,7 +67,7 @@ export default function BasicMenu() {
                 href="http://localhost:8000/api/schema/swagger-ui/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md"
+                className="nav-item rounded-md"
                 
               >
                 {' '}
@@ -77,7 +77,7 @@ export default function BasicMenu() {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="http://localhost:8000/admin/"
-                className="rounded-md"
+                className="nav-item rounded-md"
               >
                 {' '}
                 Admin{' '}
