@@ -1,128 +1,81 @@
-# Portafolio Frontend React
+# 💻 Portafolio Frontend – React + Vite + TailwindCSS
 
-Este proyecto corresponde al frontend de mi portafolio personal como Backend Developer. Fue desarrollado utilizando **React**, **Vite** y **TailwindCSS**, tecnologías modernas que permiten una experiencia de usuario fluida y un diseño adaptable.
+Este proyecto representa la interfaz moderna y desacoplada de mi portafolio técnico como Backend Developer, desarrollado con **React**, **Vite** y **TailwindCSS**. Se conecta a una API REST construida con Django/DRF y expone mis proyectos, habilidades y formulario de contacto.
 
-## 🚀 Tecnologías principales
+> 🎯 Este frontend reemplaza la versión anterior basada en Django Templates.
+> ✅ Totalmente modular, visualmente refinado y listo para producción.
 
-- **React**: Librería de JavaScript para construir interfaces interactivas.
-- **Vite**: Bundler ultra-rápido para desarrollo moderno.
-- **TailwindCSS**: Framework de utilidades para estilos responsivos y personalizados.
+---
 
-## 📦 Estructura del proyecto
+## 🚀 Tecnologías utilizadas
 
-```Portafolio-Frontend-React
-├── public/                 # Archivos estáticos que se copian directamente a la raíz de la compilación
-│   └── assets/             # Imágenes y otros recursos estáticos
-├── src/                    # Código fuente principal de la aplicación
-│   ├── components/         # Componentes de React reutilizables (ContactoCard, Footer, ProjectCard, SkillCard, TituloCard)
-│   ├── App.css             # Estilos globales de la aplicación
-│   ├── App.jsx             # Componente principal de la aplicación
-│   ├── index.css           # Estilos base/globales (Tailwind CSS se integra aquí)
-│   ├── main.jsx            # Punto de entrada de la aplicación (renderiza el componente App)
-│   └── .env                # Variables de entorno (IGNORADO por Git)
-├── .gitignore              # Archivos y directorios ignorados por Git
-├── eslint.config.js        # Configuración de ESLint
-├── index.html              # Archivo HTML principal de la aplicación (punto de montaje de React)
-├── package-lock.json       # Registra las versiones exactas de las dependencias
-├── package.json            # Metadatos del proyecto y lista de dependencias
-├── postcss.config.cjs      # Configuración de PostCSS (usado por Tailwind CSS)
-├── README.md               # Este archivo
-├── tailwind.config.js      # Configuración de Tailwind CSS
-└── vite.config.js          # Configuración de Vite
-```
+| Herramienta     | Uso principal                                |
+|-----------------|----------------------------------------------|
+| **React**       | Construcción de interfaz interactiva         |
+| **Vite**        | Bundler moderno para desarrollo rápido       |
+| **TailwindCSS** | Estilos responsivos y personalizados         |
+| **MUI**         | Íconos y componentes visuales accesibles     |
+| **Shadcn/UI**   | Adaptación de Tailwind v4 con PostCSS        |
 
+---
 
-## 🛠 Instalación del proyecto
+## 🧩 Componentes clave
 
-1. **Clonar el repositorio**
+- `ProjectCard.jsx`: muestra proyectos con imagen, descripción y enlaces
+- `SkillCard.jsx`: representa habilidades con íconos personalizados
+- `ContactCard.jsx`: formulario visual con envío a backend Django/DRF
+- `FooterCard.jsx`: enlaces a redes sociales, incluyendo CV descargable
+- `BasicMenu.jsx`: navegación interactiva con MUI
+- `SobreMi.jsx`: presentación personal editable desde frontend
+
+---
+
+## 🌐 Conexión con el Backend
+
+Este frontend se conecta al backend a través de los siguientes endpoints:
+
+- `GET /api/projects/` → muestra proyectos
+- `GET /api/skills/` → muestra habilidades
+- `POST /api/contacto/` → envía mensaje del formulario de contacto
+
+La variable `VITE_API_BASE_URL` se configura en `.env` para consumir la API correctamente.
+
+---
+
+## 📸 Vista referencial del portafolio
+
+![Vista del portafolio](portafolio.png)
+
+---
+
+## ⚙️ Instalación del proyecto
 
 ```bash
 git clone https://github.com/NicolasAndresCL/Portafolio-Frontend-React.git
 cd Portafolio-Frontend-React
+npm install
+npm run dev     # Desarrollo local
+npm run build   # Compilar para producción
 ```
 
-2. **Instalar dependencias**
+## 🧠 Ajustes importantes para Tailwind v4
 
-```npm install
-```
+- Uso de postcss.config.cjs con @tailwindcss/postcss
 
-3. **Ejecutar el entorno de desarrollo**
+- Configuración de tailwind.config.js para React/Vite
 
-```bash
-npm run dev
-```
+- Estilos base definidos en index.css
 
-4. **Compilar para producción**
+- Plugins adaptados para compatibilidad moderna
 
-```bash
-npm run build
-```
+## 📄 Notas de despliegue
 
-## 🔧 Configuración de Tailwind CSS con Vite (Shadcn/UI)
+Este frontend aún no tiene integración automática CI/CD. La versión anterior del portafolio está desplegada en PythonAnywhere, únicamente con Django Templates.
 
-Esta configuración permite usar Tailwind CSS v4 en un entorno basado en React + Vite, compatible con Shadcn/UI. Fue necesaria una adaptación manual debido a cambios en la CLI y en la integración con PostCSS.
+Este nuevo frontend será vinculado manualmente al backend y subido a producción, reemplazando la versión anterior.
 
-✅ Pasos realizados
-- Instalación del plugin correcto de PostCSS:
+## 🤝 Contribuciones
+Las mejoras visuales, ajustes responsivos o nuevas secciones son bienvenidas. Abrí un issue o enviá un pull request.
 
-```bash
-npm install @tailwindcss/postcss
-```
-
-- Archivo postcss.config.cjs (con “c” agregado):
-
-```js
-module.exports = {
-  plugins: {
-    '@tailwindcss/postcss': {
-      config: './tailwind.config.js',
-    },
-    autoprefixer: {},
-  }
-}
-```
-
-- Archivo tailwind.config.js:
-```js
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-- Estilos base en src/index.css o src/style.css:
-```css
-@import "tailwindcss";
-
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  /* ...otros estilos generales */
-}
-```
-
-- Scripts de ejecución:
-```bash
-npm run dev     # Desarrollo
-npm run build   # Producción
-```
-
-## 🧠 Notas útiles
-
-Esta solución fue necesaria debido a incompatibilidades entre Tailwind v4 y la integración tradicional con Vite.
-
-El plugin @tailwindcss/postcss permite compilar correctamente sin depender del CLI clásico.
-
-El archivo postcss.config.cjs funciona mejor que .js en este contexto.
-
+## 🧾 Licencia
+Este proyecto está bajo licencia MIT.
