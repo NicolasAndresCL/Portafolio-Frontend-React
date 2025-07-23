@@ -19,9 +19,15 @@ const ProjectCard = ({ project }) => {
 
       <p className="text-lg font-bold text-indigo-300 text-center">Técnologias: ${project.technologies}</p>
 
-        <button href={project.github_link} className="mt-4 bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded shadow">
+        <a
+          href={project.github_link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded shadow inline-block text-center"
+        >
           Ir a Github
-        </button>
+        </a>
+
       </div>
     </div>
 

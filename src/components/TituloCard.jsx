@@ -1,3 +1,6 @@
+import BasicMenu from "./BasicMenu";
+
+
 export default function Example() {
   return (
       <div className="mx-auto max-w-7xl py-0 sm:px-0 sm:py-0 lg:px-0">
@@ -23,28 +26,40 @@ export default function Example() {
               Desarrollador Backend Python con experiencia en la construcción de APIs robustas y escalables.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+              <div className="flex items-center gap-x-4">
+                <BasicMenu />
+              </div>
               <a
-                href="#Sobre-mi"
-                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                href="/NicolasCano_BackendDeveloper_CV.pdf"
+                download="NicolasCano_BackendDeveloper_CV.pdf"
+                className="text-sm/6 font-semibold text-white hover:text-gray-100"
               >
-                {' '}
-                Sobre mí{' '}
-              </a>
-              <a href="#Descargar-CV" className="text-sm/6 font-semibold text-white hover:text-gray-100">
                 Descargar CV
                 <span aria-hidden="true">→</span>
               </a>
+
             </div>
           </div>
-          <div className="relative mt-16 h-80 lg:mt-8">
-            <img
-              alt="App screenshot"
-              src="perfil-foto-nc.png"
-              width={1824}
-              height={1080}
-              className="absolute top-0 left-0 w-228 max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-            />
+          <div className="flex justify-center items-center hover:bg-gray-800 bg-gray-950">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl ring-1 ring-white/20 shadow-md">
+              <img
+                alt="App screenshot"
+                src="perfil-foto-nc.png"
+                width={400}
+                height={250}
+                className="rounded-md mx-auto"
+              />
+              <h2 className="text-center text-white mt-4 text-lg font-semibold">
+                Nicolás Cano • Backend & Data Engineering
+              </h2>
+              <p className="text-center text-gray-300 text-sm mt-2">
+                Arquitectura modular, escalabilidad y documentación impecable.
+              </p>
+            </div>
           </div>
+
+        
+
         </div>
       </div>
   )
