@@ -44,7 +44,7 @@ La variable `VITE_API_BASE_URL` se configura en `.env` para consumir la API corr
 
 ## 📸 Vista referencial del portafolio
 
-![Vista del portafolio](portafolio.png)
+![Portafolio Preview](./public/portafolio.png)
 
 ---
 
