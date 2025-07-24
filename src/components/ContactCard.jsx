@@ -20,7 +20,7 @@ const Contacto = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/contacto/`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/contacto/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
