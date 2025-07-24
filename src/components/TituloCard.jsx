@@ -44,7 +44,7 @@ export default function Example() {
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl ring-1 ring-white/20 shadow-md">
               <img
                 alt="App screenshot"
-                src="perfil-foto-nc.png"
+                src="/static/perfil-foto-nc.png"
                 width={400}
                 height={250}
                 className="rounded-md mx-auto"

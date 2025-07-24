@@ -1,4 +1,5 @@
-// SkillCard.js
+import React from 'react';
+
 const iconMap = {
   JavaScript: "https://img.icons8.com/color/48/javascript.png",
   Python: "https://img.icons8.com/color/48/python.png",
@@ -21,24 +22,22 @@ const iconMap = {
   HTML: "https://img.icons8.com/color/48/html-5.png",
   TailwindCSS: "https://img.icons8.com/color/48/tailwindcss.png",
   Bootstrap: "https://img.icons8.com/color/48/bootstrap.png",
-  // 🔁 Agrega más tecnologías según las uses
 };
 
 const SkillCard = ({ skill }) => {
   const fallbackIcon = iconMap[skill.name] || "https://img.icons8.com/color/48/source-code.png";
+  const imageUrl = skill.logo ? skill.logo : fallbackIcon;
 
   return (
     <div>
       <div className="bg-cyan-800 hover:bg-teal-700 rounded-xl shadow-xl hover:shadow-2xl border border-slate-700 transition duration-300 p-4 flex flex-col items-center">
-        
-        {/* Logo desde backend si existe, sino ícono predeterminado */}
+
         <img
-          src={skill.logo ? skill.logo : fallbackIcon}
+          src={imageUrl} 
           alt={`${skill.name} icon`}
           className="w-10 h-10 mb-2"
         />
 
-        {/* Info de la Skill */}
         <h2 className="text-white font-semibold text-lg">{skill.name}</h2>
         <p className="text-slate-200 mt-2">{skill.level}</p>
         <p className="text-slate-300 mt-1">{skill.category}</p>

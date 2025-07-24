@@ -4,7 +4,6 @@ const SobreMi = () => {
 <div className="flex flex-col md:flex-row items-center bg-gray-900 text-white rounded-xl shadow-lg p-6 ring-1 ring-white/20">
   
 
-  {/* Texto descriptivo */}
   <div className="text-center md:text-left">
     <h3 className="text-xl font-semibold">Sobre mí</h3>
     <p className="mt-2 text-gray-300">
