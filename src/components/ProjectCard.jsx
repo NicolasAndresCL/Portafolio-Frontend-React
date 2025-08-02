@@ -17,7 +17,7 @@ const ProjectCard = ({ project }) => {
       <div className='block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
       <h3 className="text-lg font-bold text-sm text-indigo-100 text-center">Descripción: {project.description}</h3>
 
-      <p className="text-lg font-bold text-indigo-300 text-center">Técnologias: ${project.technologies}</p>
+      <p className="text-lg font-bold text-indigo-300 text-center">Técnologias: {project.technologies}</p>
 
         <a
           href={project.github_link}

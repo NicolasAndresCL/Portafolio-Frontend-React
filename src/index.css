@@ -66,13 +66,57 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #1e1b4b;
   }
   a:hover {
-    color: #747bff;
+    color: #f8fafc;
   }
+   .nav-item {
+    color: #1e293b;
+  }
+
+  .nav-item:hover {
+    color: #2563eb;
+  }
+
   button {
-    background-color: #f9f9f9;
+    background-color: #06b6d4;
+    color: #ffffff;
+  }
+
+  button:hover {
+    border-color: #0ea5e9;
+  }
+  .dark\:bg-gray-800 {
+    background-color: #1f2937 !important;
+  }
+
+  .dark\:border-gray-700 {
+    border-color: #374151 !important;
+  }
+
+  .dark\:hover\:bg-gray-700:hover {
+    background-color: #374151 !important;
+  }
+
+  .text-indigo-100 {
+    color: #e0e7ff !important; 
+  }
+
+  .text-indigo-300 {
+    color: #a5b4fc !important;
+  }
+
+  .text-white {
+    color: #ffffff !important; /* fondo claro, texto oscuro */
+  }
+
+  .bg-slate-950 {
+    background-color: #020617 !important;
+  }
+  h1 {
+    color: #1f2937; /* texto oscuro */
+    background-color: #f8fafc;
   }
 }

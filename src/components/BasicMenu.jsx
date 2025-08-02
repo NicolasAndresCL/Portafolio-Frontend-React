@@ -64,7 +64,7 @@ export default function BasicMenu() {
                 Contacto{' '}
               </a></MenuItem>
         <MenuItem onClick={handleClose}><a
-                href={`${import.meta.env.VITE_API_BASE_URL}/api/schema/swagger-ui`}
+                href={`${import.meta.env.VITE_API_BASE_URL}/api/schema/swagger-ui/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nav-item rounded-md"
