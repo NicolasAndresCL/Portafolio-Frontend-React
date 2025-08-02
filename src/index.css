@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-
+/* ====== ROOT STYLES ====== */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -8,12 +8,23 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color:#1e1b4b;
+  background-color: #1e1b4b;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ====== GLOBAL ELEMENTS ====== */
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
 a {
@@ -25,26 +36,23 @@ a:hover {
   color: #f8fafc;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+h1 {
+  font-size: 2.4em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+/* ====== NAVIGATION ====== */
 .nav-item {
   color: #312e81;
 }
-
 .nav-item:hover {
   color: #4338ca;
 }
 
+/* ====== BUTTONS ====== */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -53,70 +61,98 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #06b6d4;
+  color: #ffffff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #0ea5e9;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #1e1b4b;
-  }
-  a:hover {
-    color: #f8fafc;
-  }
-   .nav-item {
-    color: #1e293b;
+/* ====== DARK MODE CLASSES (TAILWIND) ====== */
+.dark\:bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+.dark\:border-gray-700 {
+  border-color: #374151 !important;
+}
+.dark\:hover\:bg-gray-700:hover {
+  background-color: #374151 !important;
+}
+.text-indigo-100 {
+  color: #e0e7ff !important;
+}
+.text-indigo-300 {
+  color: #a5b4fc !important;
+}
+.text-white {
+  color: #ffffff !important;
+}
+.bg-slate-950 {
+  background-color: #020617 !important;
+}
+
+/* ====== MEDIA QUERY FOR LIGHT MODE ====== */
+@media (max-width: 768px) {
+  /* ✅ 1. Tarjetas correctamente posicionadas en Android */
+  .cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
   }
 
-  .nav-item:hover {
-    color: #2563eb;
+  .card {
+    width: 90%;
+    max-width: 320px;
+    margin: 0 auto;
+    text-align: center;
   }
 
-  button {
-    background-color: #06b6d4;
+  /* ✅ 2. Títulos visibles en tarjetas sin interacción */
+  .card h1 {
     color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   }
 
-  button:hover {
-    border-color: #0ea5e9;
-  }
-  .dark\:bg-gray-800 {
-    background-color: #1f2937 !important;
-  }
-
-  .dark\:border-gray-700 {
-    border-color: #374151 !important;
+  /* ✅ 3. Footer con contraste y jerarquía visual */
+  footer {
+    background-color: #1f2937; /* Fondo más oscuro */
+    color: #e5e7eb;
+    padding: 2rem 1rem;
   }
 
-  .dark\:hover\:bg-gray-700:hover {
-    background-color: #374151 !important;
+  .footer-card {
+    background-color: #374151; /* Contraste con el fondo */
+    padding: 1rem;
+    border-radius: 10px;
+    color: #f9fafb;
+    text-align: center;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   }
 
-  .text-indigo-100 {
-    color: #e0e7ff !important; 
+  /* ✅ 4. Transición visual entre fondo oscuro y claro */
+  .section-transition {
+    background: linear-gradient(to bottom, #1e1b4b, #2e2b6b, #f3f4f6);
+    padding: 2rem 1rem;
+    color: #f9fafb;
   }
 
-  .text-indigo-300 {
-    color: #a5b4fc !important;
+  /* 🎨 Ajuste adicional para visibilidad de texto sobre tarjetas claras */
+  .card-light {
+    background-color: #f3f4f6;
+    color: #1e1b4b;
+    border: 1px solid #cbd5e0;
   }
 
-  .text-white {
-    color: #ffffff !important; /* fondo claro, texto oscuro */
-  }
-
-  .bg-slate-950 {
-    background-color: #020617 !important;
-  }
-  h1 {
-    color: #1f2937; /* texto oscuro */
-    background-color: #f8fafc;
+  .card-light h3 {
+    color: #1e1b4b;
+    font-weight: 600;
   }
 }
