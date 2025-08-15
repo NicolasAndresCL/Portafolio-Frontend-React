@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
 
 /* ====== ROOT STYLES ====== */
 :root {
@@ -168,5 +170,3 @@ button:focus-visible {
   font-size: 12px;
 }
 
-@import "slick-carousel/slick/slick.css";
-@import "slick-carousel/slick/slick-theme.css";
