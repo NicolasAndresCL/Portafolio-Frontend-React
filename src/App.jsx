@@ -5,16 +5,18 @@ import React from 'react';
 
 // Importa tus componentes
 import ProjectCard from './components/ProjectCard';
+import CarruselProjects from './components/CarruselProjects'; 
 import TituloCard from './components/TituloCard';
 import FooterCard from './components/FooterCard';
 import SkillCard from './components/SkillCard';
+import SkillsCarousel from './components/SkillsCarousel';
 import MyButtonGroup from './components/ButtonGroup';
 import SobreMi from './components/SobreMi'; 
 import ContactCard from './components/ContactCard';
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [skills, setSkills] = useState([]); // <--- NUEVO ESTADO PARA HABILIDADES
+  const [skills, setSkills] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -47,40 +49,57 @@ function App() {
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <div className="p-8 ">
+    <div className="p-8">
+      {/* Título */}
       <div className="mb-8">
-      <TituloCard />
+        <TituloCard />
       </div>
-      <div className="mb-8"><MyButtonGroup /></div>
-      <div id="Sobre-mi" className="mb-8"><SobreMi /></div>
-      <h1 className="block center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mx-auto mb-6">Proyectos</h1>
-      <div id="Proyectos" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {projects.length > 0 ? ( 
-          projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))
+
+      {/* Botones */}
+      <div className="mb-8">
+        <MyButtonGroup />
+      </div>
+
+      {/* Sobre mí */}
+      <div id="Sobre-mi" className="mb-8">
+        <SobreMi />
+      </div>
+
+      {/* Proyectos */}
+      <h1 className="block center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mx-auto mb-6">
+        Proyectos destacados
+      </h1>
+      <div id="Proyectos">
+        {projects.length > 0 ? (
+          <CarruselProjects projects={projects} />
         ) : (
-          <p className="col-span-full text-center text-gray-500">¡Pronto añadiré más proyectos!</p>
+          <p className="text-center text-gray-500">¡Pronto añadiré más proyectos!</p>
         )}
       </div>
 
-      <h1 className="block center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mx-auto my-6">Habilidades</h1> {/* Título para Habilidades */}
-      <div id="Habilidades" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> {/* Puedes ajustar el grid para habilidades */}
-        {skills.length > 0 ? ( 
-          skills.map((skill) => (
-            <SkillCard key={skill.id} skill={skill} /> 
-          ))
+      {/* Habilidades */}
+      <h1 className="block center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mx-auto my-6">
+        Habilidades destacadas
+      </h1>
+      <div id="Habilidades">
+        {skills.length > 0 ? (
+          <SkillsCarousel skills={skills} />
         ) : (
-          <p className="col-span-full text-center text-gray-500">¡Pronto añadiré más habilidades!</p>
+          <p className="text-center text-gray-500">¡Pronto añadiré más habilidades!</p>
         )}
       </div>
+
+      {/* Contacto */}
       <div id="Contactame" className="mt-8">
-        <h1 className="block center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mx-auto mb-6">Contacto</h1>
+        <h1 className="block center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mx-auto mb-6">
+          Contacto
+        </h1>
         <ContactCard />
       </div>
-    
+
+      {/* Footer */}
       <div className="mt-8">
-      <FooterCard />
+        <FooterCard />
       </div>
     </div>
   );
