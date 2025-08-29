@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Spinner, Text, VStack } from '@chakra-ui/react';
 import Home from './components/Home';
 
-function App() {
+export default function App() {
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
   const [error, setError] = useState(null);
@@ -31,22 +30,20 @@ function App() {
 
   if (loading) {
     return (
-      <Box textAlign="center" py={10}>
-        <Spinner size="xl" color="orange.400" />
-        <Text mt={4}>Cargando datos...</Text>
-      </Box>
+      <div className="flex flex-col items-center justify-center min-h-screen py-10">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500 border-solid"></div>
+        <p className="mt-4 text-gray-300 text-lg">Cargando datos...</p>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Box textAlign="center" py={10}>
-        <Text color="red.500" fontWeight="medium">{error}</Text>
-      </Box>
+      <div className="flex flex-col items-center justify-center min-h-screen py-10">
+        <p className="text-red-500 font-medium text-lg">{error}</p>
+      </div>
     );
   }
 
   return <Home projects={projects} skills={skills} />;
 }
-
-export default App;

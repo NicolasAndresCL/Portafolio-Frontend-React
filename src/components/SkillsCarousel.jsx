@@ -9,7 +9,7 @@ import SkillCard from './SkillCard';
 
 const SkillsCarousel = ({ skills }) => {
   return (
-    <div className="w-full px-4 py-8">
+    <section className="w-full py-8 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <Swiper
           modules={[Navigation, Pagination]}
@@ -25,13 +25,13 @@ const SkillsCarousel = ({ skills }) => {
           className="pb-10"
         >
           {skills.map((skill, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="flex justify-center">
               <SkillCard skill={skill} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -26,18 +26,22 @@ const iconMap = {
 
 const SkillCard = ({ skill }) => {
   const fallbackIcon = iconMap[skill.name] || "https://img.icons8.com/color/48/source-code.png";
-  const imageUrl = skill.logo ? skill.logo : fallbackIcon;
+  const imageUrl = skill.logo || fallbackIcon;
 
   return (
-    <div className="bg-slate-800 rounded-2xl shadow-xl hover:shadow-2xl border border-slate-700 transition duration-300 p-6 flex flex-col items-center text-center space-y-4">
+    <div className="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 p-6 flex flex-col items-center text-center space-y-4 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
+      {/* Icono */}
       <img
         src={imageUrl}
         alt={`${skill.name} icon`}
         className="w-12 h-12"
       />
+      {/* Nombre */}
       <h2 className="text-orange-500 font-bold text-lg">{skill.name}</h2>
-      <p className="text-slate-400 text-sm font-medium">{skill.level}</p>
-      <p className="text-slate-500 text-xs">{skill.category}</p>
+      {/* Nivel */}
+      <p className="text-gray-400 text-sm font-medium">{skill.level}</p>
+      {/* Categoría */}
+      <p className="text-gray-500 text-xs">{skill.category}</p>
     </div>
   );
 };

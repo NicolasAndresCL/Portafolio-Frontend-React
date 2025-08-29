@@ -1,34 +1,32 @@
-import {
-  Box,
-  Flex,
-  Text,
-  Link,
-  IconButton,
-  VStack,
-  HStack,
-} from '@chakra-ui/react';
+import React from 'react';
 import { FaGithub, FaLinkedin, FaDev } from 'react-icons/fa';
 
-const FooterCard = () => (
-  <Box bg="gray.900" color="gray.300" py={8}>
-    <VStack spacing={4}>
-      <Text fontSize="lg" fontWeight="bold">Mi Portafolio</Text>
-      <HStack spacing={4}>
-        <Link href="https://github.com/NicolasAndresCL" isExternal>
-          <IconButton icon={<FaGithub />} aria-label="GitHub" />
-        </Link>
-        <Link href="https://www.linkedin.com/in/nicolascano-leal" isExternal>
-          <IconButton icon={<FaLinkedin />} aria-label="LinkedIn" />
-        </Link>
-        <Link href="https://dev.to/nicolasandrescl" isExternal>
-          <IconButton icon={<FaDev />} aria-label="Dev.to" />
-        </Link>
-      </HStack>
-      <Text fontSize="xs" textAlign="center">
-        © 2025 Nicolás Andrés Cano Leal™. All Rights Reserved.
-      </Text>
-    </VStack>
-  </Box>
-);
+const FooterCard = () => {
+  const iconClasses = "text-gray-300 hover:text-teal-500 transition text-2xl";
+
+  return (
+    <footer className="bg-gray-900 text-gray-300 py-8">
+      <div className="flex flex-col items-center space-y-4">
+        <h2 className="text-lg font-bold">Mi Portafolio</h2>
+        
+        <div className="flex space-x-4">
+          <a href="https://github.com/NicolasAndresCL" target="_blank" rel="noopener noreferrer">
+            <FaGithub className={iconClasses} />
+          </a>
+          <a href="https://www.linkedin.com/in/nicolascano-leal" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin className={iconClasses} />
+          </a>
+          <a href="https://dev.to/nicolasandrescl" target="_blank" rel="noopener noreferrer">
+            <FaDev className={iconClasses} />
+          </a>
+        </div>
+
+        <p className="text-xs text-center">
+          © 2025 Nicolás Andrés Cano Leal™. All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+  );
+};
 
 export default FooterCard;

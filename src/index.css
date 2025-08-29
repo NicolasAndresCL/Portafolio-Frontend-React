@@ -1,4 +1,19 @@
-/* 🧼 Global reset compatible con Chakra UI */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🎨 Variables globales para theming */
+:root {
+  --color-bg: #0F172A; /* slate-900 */
+  --color-text: #F8FAFC; /* slate-50 */
+  --color-accent: #f97316; /* orange-500 */
+  --color-accent-hover: #fb923c; /* orange-400 */
+  --color-muted: #94a3b8; /* slate-400 */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+/* 🧱 Base reset y accesibilidad */
 html, body {
   margin: 0;
   padding: 0;
@@ -9,55 +24,83 @@ html, body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
-/* 🎨 Dark mode base (Chakra lo gestiona automáticamente si usas ColorModeScript) */
 body {
-  background-color: #0F172A; /* slate-900 */
-  color: #F8FAFC; /* slate-50 */
-  font-family: system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
   line-height: 1.6;
   font-weight: 400;
 }
 
-/* 🧠 Swiper overrides compatibles con Chakra */
+/* 🧭 Tipografía técnica para títulos */
+h1, h2, h3 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* 📱 Responsividad base */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+@media (min-width: 640px) {
+  .container { padding: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .container { padding: 2rem; }
+}
+
+/* 🎯 Swiper overrides con transición suave */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #f97316; /* orange-500 */
+  color: var(--color-accent);
   transition: color 0.3s ease;
 }
-
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  color: #fb923c; /* orange-400 */
+  color: var(--color-accent-hover);
 }
-
 .swiper-pagination-bullet-active {
-  background-color: #f97316; /* orange-500 */
+  background-color: var(--color-accent);
 }
-
 .swiper-pagination-bullet {
-  background-color: #94a3b8; /* slate-400 */
+  background-color: var(--color-muted);
 }
 
-/* 🧩 Section title utility (puedes migrar esto a Chakra style props si prefieres) */
+/* 🧩 Section title con responsividad y contraste */
 .section-title {
   max-width: 96rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
   text-align: center;
-  font-size: 1.5rem; /* Ajustado para pantallas pequeñas */
+  font-size: 1.5rem;
   font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
 }
-
 @media (min-width: 640px) {
-  .section-title {
-    font-size: 2.25rem; /* Ajustado para pantallas medianas */
-  }
+  .section-title { font-size: 2.25rem; }
+}
+@media (min-width: 1024px) {
+  .section-title { font-size: 3rem; }
 }
 
-@media (min-width: 1024px) {
-  .section-title {
-    font-size: 3rem; /* Ajustado para pantallas grandes */
-  }
+/* 🧠 Utilidades visuales extra */
+.prose-invert a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.prose-invert a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* 🧪 Debug visual (opcional para desarrollo) */
+.debug-outline * {
+  outline: 1px dashed rgba(255, 255, 255, 0.1);
 }

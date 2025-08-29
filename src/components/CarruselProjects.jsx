@@ -9,31 +9,31 @@ import ProjectCard from './ProjectCard';
 
 const CarruselProjects = ({ projects }) => {
   return (
-    <div className="w-full px-4 py-8">
+    <section className="w-full py-8 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={16} // Espaciado reducido para pantallas pequeñas
+          spaceBetween={16}
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           breakpoints={{
-            640: { slidesPerView: 1.5, spaceBetween: 16 }, // Tablets pequeñas
-            768: { slidesPerView: 2, spaceBetween: 24 }, // Tablets medianas
-            1024: { slidesPerView: 3, spaceBetween: 32 }, // Laptops
-            1280: { slidesPerView: 4, spaceBetween: 40 }, // Pantallas grandes
+            640: { slidesPerView: 1.5, spaceBetween: 16 },
+            768: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 3, spaceBetween: 32 },
+            1280: { slidesPerView: 4, spaceBetween: 40 },
           }}
           className="pb-10"
         >
           {projects.map((project) => (
-            <SwiperSlide key={project.id}>
-              <ProjectCard project={project} />
+            <SwiperSlide key={project.id} className="flex justify-center">
+              <ProjectCard project={project} className="w-full" />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </div>
+    </section>
   );
 };
 
