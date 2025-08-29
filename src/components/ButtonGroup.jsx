@@ -1,37 +1,11 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import { Button, ButtonGroup } from '@chakra-ui/react';
 
-const MyButtonGroup = () => {
-  return (
-    <ButtonGroup variant="text" aria-label="Basic button group">
-      <Button
-        component="a"
-        href="https://www.linkedin.com/in/nicolas-andres-cano-leal/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        LinkedIn
-      </Button>
-      <Button
-        component="a"
-        href="https://github.com/NicolasAndresCL"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GitHub
-      </Button>
-      <Button
-        component="a"
-        href="https://dev.to/nicolasandrescl"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Dev.to
-      </Button>
-    </ButtonGroup>
-    
-  );
-};
+const MyButtonGroup = () => (
+  <ButtonGroup variant="outline" spacing={4}>
+    <Button as="a" href="https://www.linkedin.com/in/nicolas-andres-cano-leal/" target="_blank">LinkedIn</Button>
+    <Button as="a" href="https://github.com/NicolasAndresCL" target="_blank">GitHub</Button>
+    <Button as="a" href="https://dev.to/nicolasandrescl" target="_blank">Dev.to</Button>
+  </ButtonGroup>
+);
 
 export default MyButtonGroup;

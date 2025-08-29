@@ -1,172 +1,63 @@
-@import "tailwindcss";
-@import "slick-carousel/slick/slick.css";
-@import "slick-carousel/slick/slick-theme.css";
-
-/* ====== ROOT STYLES ====== */
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #1e1b4b;
-
+/* 🧼 Global reset compatible con Chakra UI */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ====== GLOBAL ELEMENTS ====== */
+/* 🎨 Dark mode base (Chakra lo gestiona automáticamente si usas ColorModeScript) */
 body {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: #0F172A; /* slate-900 */
+  color: #F8FAFC; /* slate-50 */
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
-a {
-  font-weight: 500;
-  color: #e2e8f0;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #f8fafc;
+/* 🧠 Swiper overrides compatibles con Chakra */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #f97316; /* orange-500 */
+  transition: color 0.3s ease;
 }
 
-h1 {
-  font-size: 2.4em;
-  line-height: 1.1;
-  color: #ffffff;
-  margin-bottom: 1rem;
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #fb923c; /* orange-400 */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #f97316; /* orange-500 */
+}
+
+.swiper-pagination-bullet {
+  background-color: #94a3b8; /* slate-400 */
+}
+
+/* 🧩 Section title utility (puedes migrar esto a Chakra style props si prefieres) */
+.section-title {
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
+  font-size: 1.5rem; /* Ajustado para pantallas pequeñas */
+  font-weight: 800;
 }
 
-/* ====== NAVIGATION ====== */
-.nav-item {
-  color: #312e81;
-}
-.nav-item:hover {
-  color: #4338ca;
-}
-
-/* ====== BUTTONS ====== */
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #06b6d4;
-  color: #ffffff;
-  cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
-}
-button:hover {
-  border-color: #0ea5e9;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* ====== DARK MODE CLASSES (TAILWIND) ====== */
-.dark\:bg-gray-800 {
-  background-color: #1f2937 !important;
-}
-.dark\:border-gray-700 {
-  border-color: #374151 !important;
-}
-.dark\:hover\:bg-gray-700:hover {
-  background-color: #374151 !important;
-}
-.text-indigo-100 {
-  color: #e0e7ff !important;
-}
-.text-indigo-300 {
-  color: #a5b4fc !important;
-}
-.text-white {
-  color: #ffffff !important;
-}
-.bg-slate-950 {
-  background-color: #020617 !important;
-}
-
-/* ====== MEDIA QUERY FOR LIGHT MODE ====== */
-@media (max-width: 768px) {
-  /* ✅ 1. Tarjetas correctamente posicionadas en Android */
-  .cards-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .card {
-    width: 90%;
-    max-width: 320px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  /* ✅ 2. Títulos visibles en tarjetas sin interacción */
-  .card h1 {
-    color: #ffffff;
-    font-weight: bold;
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  }
-
-  /* ✅ 3. Footer con contraste y jerarquía visual */
-  footer {
-    background-color: #1f2937; /* Fondo más oscuro */
-    color: #e5e7eb;
-    padding: 2rem 1rem;
-  }
-
-  .footer-card {
-    background-color: #374151; /* Contraste con el fondo */
-    padding: 1rem;
-    border-radius: 10px;
-    color: #f9fafb;
-    text-align: center;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-  }
-
-  /* ✅ 4. Transición visual entre fondo oscuro y claro */
-  .section-transition {
-    background: linear-gradient(to bottom, #1e1b4b, #2e2b6b, #f3f4f6);
-    padding: 2rem 1rem;
-    color: #f9fafb;
-  }
-
-  /* 🎨 Ajuste adicional para visibilidad de texto sobre tarjetas claras */
-  .card-light {
-    background-color: #f3f4f6;
-    color: #1e1b4b;
-    border: 1px solid #cbd5e0;
-  }
-
-  .card-light h3 {
-    color: #1e1b4b;
-    font-weight: 600;
+@media (min-width: 640px) {
+  .section-title {
+    font-size: 2.25rem; /* Ajustado para pantallas medianas */
   }
 }
-/* En tu archivo CSS global */
-.slick-prev:before,
-.slick-next:before {
-  color: #38bdf8; /* azul cielo */
-  font-size: 28px;
-}
 
-.slick-dots li button:before {
-  color: #f472b6; /* rosa pastel */
-  font-size: 12px;
+@media (min-width: 1024px) {
+  .section-title {
+    font-size: 3rem; /* Ajustado para pantallas grandes */
+  }
 }
-

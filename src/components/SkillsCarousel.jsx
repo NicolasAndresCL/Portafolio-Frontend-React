@@ -1,47 +1,36 @@
-import React from "react";
-import Slider from "react-slick";
-import SkillCard from "./SkillCard";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import SkillCard from './SkillCard';
 
 const SkillsCarousel = ({ skills }) => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    arrows: true,
-    responsive: [
-      {
-        breakpoint: 1280, // pantallas grandes
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 768, // pantallas medianas
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 480, // móviles
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-    ],
-  };
-
   return (
-    <div className="w-full px-4 py-8 bg-transparent from-cyan-900 to-black">
-      
-      <Slider {...settings}>
-        {skills.map((skill, index) => (
-          <div key={index} className="px-2">
-            <SkillCard skill={skill} />
-          </div>
-        ))}
-      </Slider>
+    <div className="w-full px-4 py-8">
+      <div className="max-w-6xl mx-auto">
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={24}
+          slidesPerView={2}
+          navigation
+          pagination={{ clickable: true }}
+          breakpoints={{
+            480: { slidesPerView: 3, spaceBetween: 24 },
+            768: { slidesPerView: 4, spaceBetween: 32 },
+            1024: { slidesPerView: 5, spaceBetween: 32 },
+          }}
+          className="pb-10"
+        >
+          {skills.map((skill, index) => (
+            <SwiperSlide key={index}>
+              <SkillCard skill={skill} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };

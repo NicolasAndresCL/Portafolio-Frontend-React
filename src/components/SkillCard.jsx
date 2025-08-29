@@ -29,19 +29,15 @@ const SkillCard = ({ skill }) => {
   const imageUrl = skill.logo ? skill.logo : fallbackIcon;
 
   return (
-    <div>
-      <div className="bg-cyan-800 hover:bg-teal-700 rounded-xl shadow-xl hover:shadow-2xl border border-slate-700 transition duration-300 p-4 flex flex-col items-center">
-
-        <img
-          src={imageUrl} 
-          alt={`${skill.name} icon`}
-          className="w-10 h-10 mb-2"
-        />
-
-        <h2 className="text-white font-semibold text-lg">{skill.name}</h2>
-        <p className="text-slate-200 mt-2">{skill.level}</p>
-        <p className="text-slate-300 mt-1">{skill.category}</p>
-      </div>
+    <div className="bg-slate-800 rounded-2xl shadow-xl hover:shadow-2xl border border-slate-700 transition duration-300 p-6 flex flex-col items-center text-center space-y-4">
+      <img
+        src={imageUrl}
+        alt={`${skill.name} icon`}
+        className="w-12 h-12"
+      />
+      <h2 className="text-orange-500 font-bold text-lg">{skill.name}</h2>
+      <p className="text-slate-400 text-sm font-medium">{skill.level}</p>
+      <p className="text-slate-500 text-xs">{skill.category}</p>
     </div>
   );
 };

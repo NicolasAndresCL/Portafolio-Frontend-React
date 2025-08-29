@@ -1,38 +1,40 @@
 import React from 'react';
 
 const ProjectCard = ({ project }) => {
+  const { title, image, description, technologies, github_link } = project;
+
   return (
-    <div className="bg-slate-950 rounded-lg shadow hover:shadow-lg transition duration-300 p-4 flex flex-col items-center">
-      <h2 className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl text-indigo-100 text-center mb-2 tracking-tight">
-         {project.title}
-      </h2>
-      <div className="flex justify-center items-center bg-gray-200 hover:bg-gray-100 h-48 w-full rounded-md overflow-hidden mb-4">
+    <div className="w-full bg-slate-800 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 p-6 flex flex-col items-center space-y-6 border border-slate-700">
+      <div className="w-full text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">
+          {title}
+        </h2>
+      </div>
+      <div className="w-full aspect-video bg-slate-700 rounded-lg overflow-hidden flex justify-center items-center">
         <img
-          src={project.image}
-          alt={project.title}
-          className="h-full object-contain"
+          src={image}
+          alt={`Imagen del proyecto ${title}`}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
-
-      <div className='block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
-      <h3 className="text-lg font-bold text-sm text-indigo-100 text-center">Descripción: {project.description}</h3>
-
-      <p className="text-lg font-bold text-indigo-300 text-center">Técnologias: {project.technologies}</p>
-
+      <div className="w-full space-y-4 text-center">
+        <p className="text-slate-300 font-medium leading-relaxed">
+          {description}
+        </p>
+        <p className="text-slate-400 text-sm font-medium">
+          **Tecnologías:** {technologies}
+        </p>
         <a
-          href={project.github_link}
+          href={github_link}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 bg-teal-500 hover:bg-teal-600 text-inherit px-4 py-2 rounded shadow inline-block text-center"
+          className="inline-block mt-4 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-bold shadow-md transition transform hover:scale-105"
         >
-          Ir a Github
+          Ir a GitHub
         </a>
-
       </div>
     </div>
-
   );
 };
 
 export default ProjectCard;
-
