@@ -1,56 +1,45 @@
-import {
-  Box,
-  VStack,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import React from 'react';
 import TituloCard from './TituloCard';
 import MyButtonGroup from './ButtonGroup';
 import SobreMi from './SobreMi';
 import CarruselProjects from './CarruselProjects';
 import SkillsCarousel from './SkillsCarousel';
 import ContactCard from './ContactCard';
-import FooterCard from './FooterCard';
 
 const SectionTitle = ({ children }) => (
-  <Box
-    bg={useColorModeValue('white', 'gray.800')}
-    border="1px"
-    borderColor={useColorModeValue('gray.200', 'gray.700')}
-    rounded="lg"
-    shadow="md"
-    p={6}
-    textAlign="center"
-    maxW="md"
-    mx="auto"
-  >
-    <Text fontSize="2xl" fontWeight="bold" color={useColorModeValue('indigo.900', 'indigo.100')}>
-      {children}
-    </Text>
-  </Box>
+  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md p-6 text-center max-w-md mx-auto">
+    <h2 className="text-2xl font-bold text-indigo-900 dark:text-indigo-100">{children}</h2>
+  </div>
 );
 
 export default function Home({ projects, skills }) {
   return (
-    <Box maxW="7xl" mx="auto" px={4} py={12}>
-      <VStack spacing={16} align="stretch">
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="space-y-16">
         <TituloCard />
         <MyButtonGroup />
-        <Box id="Sobre-mi"><SobreMi /></Box>
-        <Box id="Proyectos">
+        <div id="Sobre-mi"><SobreMi /></div>
+        <div id="Proyectos">
           <SectionTitle>Proyectos destacados</SectionTitle>
-          {projects.length > 0 ? <CarruselProjects projects={projects} /> : <Text textAlign="center" color="gray.500">¡Pronto añadiré más proyectos!</Text>}
-        </Box>
-        <Box id="Habilidades">
+          {projects.length > 0 ? (
+            <CarruselProjects projects={projects} />
+          ) : (
+            <p className="text-center text-gray-500">¡Pronto añadiré más proyectos!</p>
+          )}
+        </div>
+        <div id="Habilidades">
           <SectionTitle>Habilidades destacadas</SectionTitle>
-          {skills.length > 0 ? <SkillsCarousel skills={skills} /> : <Text textAlign="center" color="gray.500">¡Pronto añadiré más habilidades!</Text>}
-        </Box>
-        <Box id="Contactame">
+          {skills.length > 0 ? (
+            <SkillsCarousel skills={skills} />
+          ) : (
+            <p className="text-center text-gray-500">¡Pronto añadiré más habilidades!</p>
+          )}
+        </div>
+        <div id="Contactame">
           <SectionTitle>Contacto</SectionTitle>
           <ContactCard />
-        </Box>
-        <FooterCard />
-      </VStack>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 }

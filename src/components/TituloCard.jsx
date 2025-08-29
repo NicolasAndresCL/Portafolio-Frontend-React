@@ -1,4 +1,5 @@
-import BasicMenu from "./BasicMenu";
+import React from 'react';
+import BasicMenu from './BasicMenu';
 
 export default function TituloCard() {
   return (

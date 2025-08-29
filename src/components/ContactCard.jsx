@@ -1,14 +1,4 @@
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Button,
-  VStack,
-  Text,
-} from '@chakra-ui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const ContactCard = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -21,30 +11,50 @@ const ContactCard = () => {
   };
 
   return (
-    <Box bg="gray.900" color="white" p={8} rounded="xl" shadow="md">
-      <VStack spacing={6} align="stretch">
-        <Text fontSize="sm" color="gray.300">
+    <div className="bg-gray-900 text-white p-8 rounded-xl shadow-md">
+      <div className="space-y-6">
+        <p className="text-sm text-gray-300">
           ¿Tienes preguntas o quieres colaborar? ¡Escríbeme!
-        </Text>
-        <form onSubmit={handleSubmit}>
-          <VStack spacing={4}>
-            <FormControl isRequired>
-              <FormLabel>Nombre</FormLabel>
-              <Input name="name" value={formData.name} onChange={handleChange} />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input type="email" name="email" value={formData.email} onChange={handleChange} />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>Mensaje</FormLabel>
-              <Textarea name="message" value={formData.message} onChange={handleChange} rows={5} />
-            </FormControl>
-            <Button type="submit" colorScheme="teal">Enviar mensaje</Button>
-          </VStack>
+        </p>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Nombre</label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Mensaje</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={5}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-teal-500 text-white font-medium rounded-md shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
+          >
+            Enviar mensaje
+          </button>
         </form>
-      </VStack>
-    </Box>
+      </div>
+    </div>
   );
 };
 

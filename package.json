@@ -4,6 +4,9 @@
   "description": "Este proyecto representa la interfaz moderna y desacoplada de mi portafolio técnico como Backend Developer, desarrollado con **React**, **Vite** y **TailwindCSS**. Se conecta a una API REST construida con Django/DRF y expone mis proyectos, habilidades y formulario de contacto.",
   "main": "eslint.config.js",
   "dependencies": {
+    "@chakra-ui/react": "^3.26.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "ajv": "^6.12.6",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
@@ -57,6 +60,7 @@
     "motion-dom": "^12.23.12",
     "motion-utils": "^12.23.6",
     "natural-compare": "^1.4.0",
+    "next-themes": "^0.4.6",
     "normalize-range": "^0.1.2",
     "optionator": "^0.9.4",
     "parse-json": "^5.2.0",
@@ -100,5 +104,10 @@
   "bugs": {
     "url": "https://github.com/NicolasAndresCL/Portafolio-Frontend-React/issues"
   },
-  "homepage": "https://github.com/NicolasAndresCL/Portafolio-Frontend-React#readme"
+  "homepage": "https://github.com/NicolasAndresCL/Portafolio-Frontend-React#readme",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.12",
+    "@vitejs/plugin-react": "^5.0.2",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
 }
