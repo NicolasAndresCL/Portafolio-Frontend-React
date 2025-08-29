@@ -14,8 +14,6 @@ Este proyecto representa la interfaz moderna y desacoplada de mi portafolio téc
 | **React**       | Construcción de interfaz interactiva         |
 | **Vite**        | Bundler moderno para desarrollo rápido       |
 | **TailwindCSS** | Estilos responsivos y personalizados         |
-| **MUI**         | Íconos y componentes visuales accesibles     |
-| **Shadcn/UI**   | Adaptación de Tailwind v4 con PostCSS        |
 
 ---
 
@@ -25,7 +23,7 @@ Este proyecto representa la interfaz moderna y desacoplada de mi portafolio téc
 - `SkillCard.jsx`: representa habilidades con íconos personalizados
 - `ContactCard.jsx`: formulario visual con envío a backend Django/DRF
 - `FooterCard.jsx`: enlaces a redes sociales, incluyendo CV descargable
-- `BasicMenu.jsx`: navegación interactiva con MUI
+- `BasicMenu.jsx`: navegación interactiva con Tailwind CSS
 - `SobreMi.jsx`: presentación personal editable desde frontend
 
 ---
@@ -58,14 +56,11 @@ npm run dev     # Desarrollo local
 npm run build   # Compilar para producción
 ```
 
-## 🧠 Ajustes importantes para Tailwind v4
+## 🧠 Ajustes importantes para Tailwind CSS
 
 - Uso de postcss.config.cjs con @tailwindcss/postcss
-
 - Configuración de tailwind.config.js para React/Vite
-
 - Estilos base definidos en index.css
-
 - Plugins adaptados para compatibilidad moderna
 
 ## 📄 Notas de despliegue
@@ -75,58 +70,43 @@ Este frontend aún no tiene integración automática CI/CD. La versión anterior
 Este nuevo frontend será vinculado manualmente al backend y subido a producción, reemplazando la versión anterior.
 
 ## 🐛 Debugging real en producción Django + React
-🔍 1. Pantalla en blanco tras integración de frontend
-Síntoma: Vista en blanco sin errores visibles en consola.
 
-Diagnóstico:
+### 🔍 1. Pantalla en blanco tras integración de frontend
+**Síntoma**: Vista en blanco sin errores visibles en consola.
 
-Archivos hashificados duplicados en STATIC_ROOT.
+**Diagnóstico**:
+- Archivos hashificados duplicados en STATIC_ROOT.
+- index.html mal referenciado o sin ruta estática adecuada.
+- Assets no linkeados correctamente por manifest.json post-build.
 
-index.html mal referenciado o sin ruta estática adecuada.
+**Solución aplicada**:
+- Limpieza de STATIC_ROOT + regeneración de assets vía npm run build.
+- Validación manual de rutas en HTML y revisión de settings.py.
+- Verificación de collectstatic y compatibilidad con STATICFILES_DIRS.
 
-Assets no linkeados correctamente por manifest.json post-build.
+### ⚠️ 2. Error MIME en entorno móvil
+**Síntoma**: Estilos no cargan en dispositivos móviles, consola marca error MIME.
 
-Solución aplicada:
+**Diagnóstico**:
+- Improper MIME type debido a ruta errónea o archivo vacío.
+- Confusión entre STATICFILES_DIRS (desarrollo) y STATIC_ROOT (producción).
 
-Limpieza de STATIC_ROOT + regeneración de assets vía npm run build.
+**Solución aplicada**:
+- Revisión de cabeceras en archivos CSS y JS.
+- Rebuild del frontend asegurando .map y .css válidos.
+- Ajuste en configuración de Nginx/Gunicorn para servir estáticos correctamente.
 
-Validación manual de rutas en HTML y revisión de settings.py.
+### 🖼️ 3. Problemas de visibilidad UX/UI en móvil
+**Síntoma**: Tarjetas invisibles, texto sin contraste en ciertas resoluciones.
 
-Verificación de collectstatic y compatibilidad con STATICFILES_DIRS.
+**Diagnóstico**:
+- Estilos heredados no aplican correctamente en media queries.
+- Diferencias en layout y z-index por falta de breakpoints específicos.
 
-## ⚠️ 2. Error MIME en entorno móvil
-Síntoma: Estilos no cargan en dispositivos móviles, consola marca error MIME.
-
-Diagnóstico:
-
-Improper MIME type debido a ruta errónea o archivo vacío.
-
-Confusión entre STATICFILES_DIRS (desarrollo) y STATIC_ROOT (producción).
-
-Solución aplicada:
-
-Revisión de cabeceras en archivos CSS y JS.
-
-Rebuild del frontend asegurando .map y .css válidos.
-
-Ajuste en configuración de Nginx/Gunicorn para servir estáticos correctamente.
-
-## 🖼️ 3. Problemas de visibilidad UX/UI en móvil
-Síntoma: Tarjetas invisibles, texto sin contraste en ciertas resoluciones.
-
-Diagnóstico:
-
-Estilos heredados no aplican correctamente en media queries.
-
-Diferencias en layout y z-index por falta de breakpoints específicos.
-
-Solución aplicada:
-
-Refactor con min-width y max-width en breakpoints claves.
-
-Uso de unidades relativas (em, %) para adaptar espaciado.
-
-Validación visual multiplataforma con inspección móvil en DevTools.
+**Solución aplicada**:
+- Refactor con min-width y max-width en breakpoints claves.
+- Uso de unidades relativas (em, %) para adaptar espaciado.
+- Validación visual multiplataforma con inspección móvil en DevTools.
 
 ## 🤝 Contribuciones
 Las mejoras visuales, ajustes responsivos o nuevas secciones son bienvenidas. Abrí un issue o enviá un pull request.
