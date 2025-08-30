@@ -5,13 +5,54 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import { styled } from '@/stitches.config';
 import ProjectCard from './ProjectCard';
 
-const CarruselProjects = ({ projects }) => {
+// 🎨 Estilos con tokens VSCode Dark+
+const Section = styled('section', {
+  width: '100%',
+  backgroundColor: '$background',
+  padding: '$5 $3',
+});
+
+const Container = styled('div', {
+  maxWidth: '96rem',
+  margin: '0 auto',
+});
+
+const SlideWrapper = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  paddingBottom: '$6',
+});
+
+const SwiperStyled = styled(Swiper, {
+  paddingBottom: '$6',
+
+  '.swiper-button-next, .swiper-button-prev': {
+    color: '$syntaxFunction',
+    transition: 'color 0.3s ease',
+    '&:hover': {
+      color: '$accentHover',
+    },
+  },
+
+  '.swiper-pagination-bullet': {
+    backgroundColor: '$muted',
+    opacity: 0.6,
+  },
+
+  '.swiper-pagination-bullet-active': {
+    backgroundColor: '$syntaxFunction',
+    opacity: 1,
+  },
+});
+
+export default function CarruselProjects({ projects }) {
   return (
-    <section className="w-full py-8 px-4 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <Swiper
+    <Section>
+      <Container>
+        <SwiperStyled
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={16}
           slidesPerView={1}
@@ -24,17 +65,16 @@ const CarruselProjects = ({ projects }) => {
             1024: { slidesPerView: 3, spaceBetween: 32 },
             1280: { slidesPerView: 4, spaceBetween: 40 },
           }}
-          className="pb-10"
         >
           {projects.map((project) => (
-            <SwiperSlide key={project.id} className="flex justify-center">
-              <ProjectCard project={project} className="w-full" />
+            <SwiperSlide key={project.id}>
+              <SlideWrapper>
+                <ProjectCard project={project} />
+              </SlideWrapper>
             </SwiperSlide>
           ))}
-        </Swiper>
-      </div>
-    </section>
+        </SwiperStyled>
+      </Container>
+    </Section>
   );
-};
-
-export default CarruselProjects;
+}

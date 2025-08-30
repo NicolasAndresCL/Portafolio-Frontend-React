@@ -1,32 +1,52 @@
-const MyButtonGroup = () => {
+import React from 'react';
+import { styled } from '@/stitches.config';
+import { Button } from '@/components/ui/Button';
+
+// 🎨 Layout visual centrado
+const ButtonGroup = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '$3',
+  flexWrap: 'wrap',
+  marginTop: '$5',
+});
+
+export default function MyButtonGroup() {
   return (
-    <div className="flex space-x-4">
-      <a
+    <ButtonGroup>
+      <Button
+        as="a"
         href="https://www.linkedin.com/in/nicolas-andres-cano-leal/"
         target="_blank"
         rel="noopener noreferrer"
-        className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+        variant="ghost"
+        css={{ color: '$syntaxFunction' }}
       >
         LinkedIn
-      </a>
-      <a
+      </Button>
+
+      <Button
+        as="a"
         href="https://github.com/NicolasAndresCL"
         target="_blank"
         rel="noopener noreferrer"
-        className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+        variant="ghost"
+        css={{ color: '$syntaxVariable' }}
       >
         GitHub
-      </a>
-      <a
+      </Button>
+
+      <Button
+        as="a"
         href="https://dev.to/nicolasandrescl"
         target="_blank"
         rel="noopener noreferrer"
-        className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+        variant="ghost"
+        css={{ color: '$syntaxKeyword' }}
       >
         Dev.to
-      </a>
-    </div>
+      </Button>
+    </ButtonGroup>
   );
-};
-
-export default MyButtonGroup;
+}

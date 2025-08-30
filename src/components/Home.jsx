@@ -1,56 +1,95 @@
 import React from 'react';
 import TituloCard from './TituloCard';
-import MyButtonGroup from './ButtonGroup';
+import ButtonGroup from './ButtonGroup';
 import SobreMi from './SobreMi';
 import CarruselProjects from './CarruselProjects';
 import SkillsCarousel from './SkillsCarousel';
 import ContactCard from './ContactCard';
+import FooterCard from './FooterCard';
 
-const SectionTitle = ({ children }) => (
-  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md p-6 text-center max-w-md mx-auto">
-    <h2 className="text-2xl font-bold text-indigo-900 dark:text-indigo-100">{children}</h2>
-  </div>
-);
+import { styled } from '@/stitches.config';
+
+// 🎨 Estilos visuales
+const Main = styled('main', {
+  width: '100%',
+  minHeight: '100vh',
+  padding: '$6 $4',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$7',
+  backgroundColor: '$background',
+});
+
+const Section = styled('section', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+});
+
+const SectionTitle = styled('h2', {
+  fontSize: '$xl',
+  fontWeight: 'bold',
+  fontFamily: '$mono',
+  textAlign: 'center',
+  backgroundColor: '$panel',
+  border: '1px solid $border',
+  borderRadius: '$lg',
+  boxShadow: '$soft',
+  padding: '$4',
+  maxWidth: '32rem',
+  margin: '0 auto',
+  color: '$syntaxFunction',
+});
+
+const PlaceholderText = styled('p', {
+  textAlign: 'center',
+  fontSize: '$sm',
+  fontFamily: '$mono',
+  color: '$syntaxComment',
+});
 
 export default function Home({ projects, skills }) {
   return (
-    <main className="max-w-7xl mx-auto px-4 py-12 space-y-16">
+    <Main>
       {/* Título principal */}
       <TituloCard />
 
       {/* Botones de contacto */}
-      <MyButtonGroup />
+      <ButtonGroup />
 
       {/* Sección Sobre mí */}
-      <section id="Sobre-mi">
+      <Section id="Sobre-mi">
         <SobreMi />
-      </section>
+      </Section>
 
       {/* Sección Proyectos */}
-      <section id="Proyectos" className="space-y-6">
+      <Section id="Proyectos">
         <SectionTitle>Proyectos destacados</SectionTitle>
         {projects.length > 0 ? (
           <CarruselProjects projects={projects} />
         ) : (
-          <p className="text-center text-gray-500">¡Pronto añadiré más proyectos!</p>
+          <PlaceholderText>¡Pronto añadiré más proyectos!</PlaceholderText>
         )}
-      </section>
+      </Section>
 
       {/* Sección Habilidades */}
-      <section id="Habilidades" className="space-y-6">
+      <Section id="Habilidades">
         <SectionTitle>Habilidades destacadas</SectionTitle>
         {skills.length > 0 ? (
           <SkillsCarousel skills={skills} />
         ) : (
-          <p className="text-center text-gray-500">¡Pronto añadiré más habilidades!</p>
+          <PlaceholderText>¡Pronto añadiré más habilidades!</PlaceholderText>
         )}
-      </section>
+      </Section>
 
       {/* Sección Contacto */}
-      <section id="Contactame" className="space-y-6">
+      <Section id="Contactame">
         <SectionTitle>Contacto</SectionTitle>
         <ContactCard />
-      </section>
-    </main>
+      </Section>
+
+      {/* Footer */}
+      <FooterCard />
+    </Main>
   );
 }

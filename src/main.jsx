@@ -1,13 +1,28 @@
 import ReactDOM from 'react-dom/client';
-import { Provider } from "@/components/ui/provider"
-import React from "react"
+import React from 'react';
 import App from './App';
-import './index.css'; // <--- aquí importas Tailwind
+
+// 🎨 Estilos globales de Radix Themes
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes';
+
+// 🧱 Estilos globales personalizados con Stitches
+import { globalStyles } from './stitches.config';
+
+// 🧪 Aplica estilos globales
+globalStyles();
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider>
+    <Theme
+      accentColor="blue"
+      grayColor="sand"
+      radius="medium"
+      scaling="95%"
+    >
       <App />
-    </Provider>
-  </React.StrictMode>,
-)
+    </Theme>
+  </React.StrictMode>
+);
+

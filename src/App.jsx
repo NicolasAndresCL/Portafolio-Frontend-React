@@ -1,6 +1,46 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Home from './components/Home';
+import { styled } from '@/stitches.config';
+import { Text } from '@radix-ui/themes';
+
+// 🎨 Estilos visuales
+const Wrapper = styled('div', {
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '$5',
+  backgroundColor: '$background',
+});
+
+const Spinner = styled('div', {
+  width: '4rem',
+  height: '4rem',
+  borderRadius: '50%',
+  border: '4px solid $syntaxFunction',
+  borderTopColor: 'transparent',
+  animation: 'spin 1s linear infinite',
+
+  '@keyframes spin': {
+    to: { transform: 'rotate(360deg)' },
+  },
+});
+
+const ErrorText = styled(Text, {
+  color: '$syntaxError',
+  fontSize: '$lg',
+  fontWeight: 'medium',
+  textAlign: 'center',
+});
+
+const LoadingText = styled(Text, {
+  color: '$muted',
+  fontSize: '$lg',
+  marginTop: '$3',
+  textAlign: 'center',
+});
 
 export default function App() {
   const [projects, setProjects] = useState([]);
@@ -30,20 +70,19 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen py-10">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500 border-solid"></div>
-        <p className="mt-4 text-gray-300 text-lg">Cargando datos...</p>
-      </div>
+      <Wrapper>
+        <Spinner />
+        <LoadingText>Cargando datos...</LoadingText>
+      </Wrapper>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen py-10">
-        <p className="text-red-500 font-medium text-lg">{error}</p>
-      </div>
+      <Wrapper>
+        <ErrorText>{error}</ErrorText>
+      </Wrapper>
     );
   }
-
   return <Home projects={projects} skills={skills} />;
 }

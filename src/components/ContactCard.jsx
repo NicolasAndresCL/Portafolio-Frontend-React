@@ -1,6 +1,55 @@
 import React, { useState } from 'react';
+import { styled } from '@/stitches.config';
+import { Card } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
 
-const ContactCard = () => {
+// 🎨 Estilos internos
+const FormWrapper = styled('form', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+});
+
+const Title = styled('h2', {
+  fontSize: '$lg',
+  fontWeight: 'bold',
+  fontFamily: '$mono',
+  color: '$syntaxFunction',
+  textAlign: 'center',
+  marginBottom: '$3',
+});
+
+const Label = styled('label', {
+  fontSize: '$sm',
+  fontWeight: '500',
+  fontFamily: '$mono',
+  color: '$syntaxComment',
+  marginBottom: '$1',
+  display: 'block',
+});
+
+const Textarea = styled('textarea', {
+  width: '100%',
+  padding: '$2 $3',
+  borderRadius: '$md',
+  backgroundColor: '$panel',
+  color: '$text',
+  border: '1px solid $border',
+  fontSize: '$sm',
+  fontFamily: '$mono',
+  outline: 'none',
+  resize: 'vertical',
+  '&::placeholder': {
+    color: '$muted',
+  },
+  '&:focus': {
+    borderColor: '$accent',
+    boxShadow: '0 0 0 2px $colors$accent',
+  },
+});
+
+export default function ContactCard() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleChange = (e) =>
@@ -11,62 +60,50 @@ const ContactCard = () => {
     // lógica de envío
   };
 
-  const inputClasses =
-    "mt-1 block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm px-3 py-2 placeholder-gray-400 focus:outline-none focus:border-teal-500 focus:ring focus:ring-teal-400 focus:ring-opacity-50";
-
   return (
-    <section className="bg-gray-900 p-8 rounded-xl shadow-lg max-w-xl mx-auto">
-      <div className="space-y-6">
-        <p className="text-sm text-gray-300 text-center">
-          ¿Tienes preguntas o quieres colaborar? ¡Escríbeme!
-        </p>
+    <Card elevation="strong" css={{ maxWidth: '36rem', margin: '0 auto', padding: '$5' }}>
+      <Title>¿Tienes preguntas o quieres colaborar?</Title>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-300">Nombre</label>
-            <input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Tu nombre"
-              className={inputClasses}
-            />
-          </div>
+      <FormWrapper onSubmit={handleSubmit}>
+        <div>
+          <Label htmlFor="name">Nombre</Label>
+          <Input
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Tu nombre"
+          />
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="tu@email.com"
-              className={inputClasses}
-            />
-          </div>
+        <div>
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="tu@email.com"
+          />
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300">Mensaje</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={5}
-              placeholder="Escribe tu mensaje..."
-              className={inputClasses}
-            />
-          </div>
+        <div>
+          <Label htmlFor="message">Mensaje</Label>
+          <Textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows={5}
+            placeholder="Escribe tu mensaje..."
+          />
+        </div>
 
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-teal-500 text-white font-semibold rounded-md shadow-md hover:bg-teal-600 transition focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-          >
-            Enviar mensaje
-          </button>
-        </form>
-      </div>
-    </section>
+        <Button type="submit" variant="primary">
+          Enviar mensaje
+        </Button>
+      </FormWrapper>
+    </Card>
   );
-};
-
-export default ContactCard;
+}

@@ -1,43 +1,89 @@
 import React from 'react';
+import { styled } from '@/stitches.config';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
-const ProjectCard = ({ project }) => {
+// 🎨 Estilos internos
+const GradientTitle = styled('h2', {
+  fontSize: '$xl',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  fontFamily: '$mono',
+  backgroundImage: 'linear-gradient(to right, $syntaxFunction, $syntaxKeyword)',
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  color: 'transparent',
+  margin: 0,
+});
+
+const ImageWrapper = styled('div', {
+  width: '100%',
+  aspectRatio: '16 / 9',
+  borderRadius: '$md',
+  overflow: 'hidden',
+  backgroundColor: '$border',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+const ProjectImage = styled('img', {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  transition: 'transform 0.3s ease',
+  '&:hover': {
+    transform: 'scale(1.05)',
+  },
+});
+
+const InfoBlock = styled('div', {
+  width: '100%',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$3',
+});
+
+const Description = styled('p', {
+  fontSize: '$base',
+  fontFamily: '$body',
+  color: '$syntaxString',
+  lineHeight: 1.6,
+});
+
+const TechList = styled('p', {
+  fontSize: '$sm',
+  fontFamily: '$mono',
+  color: '$syntaxKeyword',
+});
+
+export default function ProjectCard({ project }) {
   const { title, image, description, technologies, github_link } = project;
 
   return (
-    <div className="w-full bg-gray-800 rounded-2xl shadow-xl border border-gray-700 p-6 flex flex-col items-center space-y-6 hover:shadow-2xl transition-shadow duration-300">
-      {/* Título con gradiente */}
-      <h2 className="text-2xl sm:text-3xl font-bold text-center tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">
-        {title}
-      </h2>
+    <Card elevation="strong" css={{ width: '100%', alignItems: 'center', gap: '$5' }}>
+      <GradientTitle>{title}</GradientTitle>
 
-      {/* Imagen del proyecto */}
-      <div className="w-full aspect-video rounded-lg overflow-hidden bg-gray-700 flex justify-center items-center">
-        <img
-          src={image}
-          alt={`Imagen del proyecto ${title}`}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        />
-      </div>
+      <ImageWrapper>
+        <ProjectImage src={image} alt={`Imagen del proyecto ${title}`} />
+      </ImageWrapper>
 
-      {/* Descripción y tecnologías */}
-      <div className="w-full space-y-4 text-center">
-        <p className="text-gray-300 font-medium leading-relaxed">{description}</p>
-        <p className="text-gray-400 text-sm font-medium">
-          <span className="font-semibold">Tecnologías:</span> {technologies}
-        </p>
-
-        {/* Botón GitHub */}
-        <a
+      <InfoBlock>
+        <Description>{description}</Description>
+        <TechList>
+          <strong>Tecnologías:</strong> {technologies}
+        </TechList>
+        <Button
+          as="a"
           href={github_link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105"
+          variant="primary"
         >
           Ir a GitHub
-        </a>
-      </div>
-    </div>
+        </Button>
+      </InfoBlock>
+    </Card>
   );
-};
-
-export default ProjectCard;
+}
