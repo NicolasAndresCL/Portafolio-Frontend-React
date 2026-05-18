@@ -37,10 +37,13 @@ export default function SobreMi() {
       <Content>
         <Title>Sobre mí</Title>
         <Paragraph>
-          Desarrollador backend autodidacta con vocación por la arquitectura modular, la escalabilidad y la documentación profesional. Me especializo en Django, DRF, FastAPI, Flask y APIs RESTful.
+          Desarrollador Backend Python que empezó construyendo APIs y hoy mira el panorama completo: no solo cómo se construye un sistema, sino cómo se opera, se automatiza y se mantiene en pie bajo carga real.
         </Paragraph>
         <Paragraph>
-          En transición hacia data engineering, enfoco mis avances en soluciones limpias, testeables y listas para producción.
+          Me especializo en Django y DRF para construir APIs limpias y bien documentadas. En mi día a día en operaciones (LiveOps/BizOps) convierto necesidades reales en herramientas propias —automatización con Docker y Jenkins, tableros analíticos con Streamlit— porque creo que el mejor software nace de un problema concreto que alguien necesita resolver.
+        </Paragraph>
+        <Paragraph>
+          Mi camino apunta hacia la ingeniería de confiabilidad (SRE): sistemas que escalan, se observan y se recuperan solos.
         </Paragraph>
         <Note>// Siempre aprendiendo, siempre refactorizando</Note>
       </Content>

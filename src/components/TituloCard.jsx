@@ -128,7 +128,7 @@ export default function TituloCard() {
                 Portafolio de <br />Nicolás Andrés Cano Leal
               </Title>
               <Subtitle>
-                Desarrollador Backend Python con experiencia en la construcción de APIs robustas y escalables.
+                De APIs robustas a sistemas observables. Construyo para que escale y para que no se caiga.
               </Subtitle>
               <Flex gap="3" mt="3" justify="center" wrap="wrap">
                 <BasicMenu />
@@ -139,9 +139,9 @@ export default function TituloCard() {
             </TextBlock>
 
             <AvatarCard>
-              <AvatarImage src="/public/perfil-foto-nc.png" alt="Foto de Nicolás Cano" />
+              <AvatarImage src="/perfil-foto-nc.png" alt="Foto de Nicolás Cano" />
               <Title style={{ fontSize: '1.25rem' }}>Nicolás Cano</Title>
-              <Role>LiveOps & BizOps | Python Backend Developer | Data Automation</Role>
+              <Role>Backend Python Developer | Automation & Reliability</Role>
               <Description>
                 Arquitectura modular, escalabilidad y documentación impecable.
               </Description>
