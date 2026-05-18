@@ -2,6 +2,7 @@ import React from 'react';
 import { Flex } from '@radix-ui/themes';
 import { styled } from '@/stitches.config';
 import BasicMenu from './BasicMenu';
+import profilePhoto from '@/assets/perfil-foto-nc.png';
 
 // 🎨 Estilos con tokens VSCode Dark+
 const Section = styled('section', {
@@ -139,7 +140,7 @@ export default function TituloCard() {
             </TextBlock>
 
             <AvatarCard>
-              <AvatarImage src="/perfil-foto-nc.png" alt="Foto de Nicolás Cano" />
+              <AvatarImage src={profilePhoto} alt="Foto de Nicolás Cano" />
               <Title style={{ fontSize: '1.25rem' }}>Nicolás Cano</Title>
               <Role>Backend Python Developer | Automation & Reliability</Role>
               <Description>
