@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { styled } from '@/stitches.config';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 
-// 🎨 Estilos internos
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 const FormWrapper = styled('form', {
   display: 'flex',
   flexDirection: 'column',
@@ -40,24 +42,56 @@ const Textarea = styled('textarea', {
   fontFamily: '$mono',
   outline: 'none',
   resize: 'vertical',
-  '&::placeholder': {
-    color: '$muted',
-  },
+  '&::placeholder': { color: '$muted' },
   '&:focus': {
     borderColor: '$accent',
     boxShadow: '0 0 0 2px $colors$accent',
   },
 });
 
+const FeedbackMessage = styled('p', {
+  fontSize: '$sm',
+  fontFamily: '$mono',
+  textAlign: 'center',
+  padding: '$2',
+  borderRadius: '$md',
+  variants: {
+    type: {
+      success: { color: '#4ade80', backgroundColor: 'rgba(74, 222, 128, 0.1)' },
+      error:   { color: '$syntaxError', backgroundColor: 'rgba(220, 38, 38, 0.1)' },
+    },
+  },
+});
+
+const INITIAL_FORM = { name: '', email: '', message: '' };
+
 export default function ContactCard() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData]     = useState(INITIAL_FORM);
+  const [status, setStatus]         = useState(null); // 'success' | 'error' | null
+  const [feedback, setFeedback]     = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // lógica de envío
+    setSubmitting(true);
+    setStatus(null);
+
+    try {
+      await axios.post(`${API_URL}/api/contacto/`, formData, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      setStatus('success');
+      setFeedback('¡Mensaje enviado! Me pondré en contacto contigo pronto.');
+      setFormData(INITIAL_FORM);
+    } catch {
+      setStatus('error');
+      setFeedback('Hubo un error al enviar el mensaje. Inténtalo de nuevo más tarde.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -73,6 +107,7 @@ export default function ContactCard() {
             value={formData.name}
             onChange={handleChange}
             placeholder="Tu nombre"
+            required
           />
         </div>
 
@@ -85,6 +120,7 @@ export default function ContactCard() {
             value={formData.email}
             onChange={handleChange}
             placeholder="tu@email.com"
+            required
           />
         </div>
 
@@ -97,11 +133,16 @@ export default function ContactCard() {
             onChange={handleChange}
             rows={5}
             placeholder="Escribe tu mensaje..."
+            required
           />
         </div>
 
-        <Button type="submit" variant="primary">
-          Enviar mensaje
+        {status && (
+          <FeedbackMessage type={status}>{feedback}</FeedbackMessage>
+        )}
+
+        <Button type="submit" variant="primary" disabled={submitting}>
+          {submitting ? 'Enviando...' : 'Enviar mensaje'}
         </Button>
       </FormWrapper>
     </Card>

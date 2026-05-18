@@ -9,4 +9,20 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    outDir: path.resolve(__dirname, '../../backend/MiPortafolioDjango/static/frontend/dist'),
+    emptyOutDir: true,
+    manifest: true,
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/tests/setup.js'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      include: ['src/**/*.{js,jsx}'],
+      exclude: ['src/main.jsx', 'src/tests/**'],
+    },
+  },
 });
