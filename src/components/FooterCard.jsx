@@ -60,7 +60,7 @@ export default function FooterCard() {
             <FaGithub />
           </IconLink>
           <IconLink
-            href="https://www.linkedin.com/in/nicolascano-leal"
+            href="https://www.linkedin.com/in/nicolas-andres-cano-leal/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"

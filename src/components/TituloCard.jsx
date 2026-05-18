@@ -141,7 +141,7 @@ export default function TituloCard() {
             <AvatarCard>
               <AvatarImage src="/public/perfil-foto-nc.png" alt="Foto de Nicolás Cano" />
               <Title style={{ fontSize: '1.25rem' }}>Nicolás Cano</Title>
-              <Role>Backend & Data Engineering</Role>
+              <Role>LiveOps & BizOps | Python Backend Developer | Data Automation</Role>
               <Description>
                 Arquitectura modular, escalabilidad y documentación impecable.
               </Description>

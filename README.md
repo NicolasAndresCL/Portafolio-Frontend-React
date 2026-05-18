@@ -1,54 +1,133 @@
-# Portafolio Frontend - React + Vite + Radix + Stitches + Reflex
-============================================================
+# Portafolio Frontend — React + Vite + Stitches + Radix UI
 
-Este proyecto representa la interfaz moderna, desacoplada y visualmente profesional de mi portafolio técnico como Backend Developer. Desarrollado con **React**, **Vite**, **Radix Themes**, **Stitches** y **Reflex**, se conecta a una API REST construida con Django/DRF y expone mis proyectos, habilidades y formulario de contacto.
+Interfaz moderna y desacoplada de mi portafolio técnico. Construida con **React 19**, **Vite 7**, **Stitches** y **Radix UI Themes**, se conecta a una API REST Django/DRF y presenta mis proyectos, habilidades y formulario de contacto funcional.
 
-> **Notas importantes**:
->
-> - Reemplaza la versión anterior basada en Django Templates y TailwindCSS.
-> - Refactorizado con tokens semánticos, componentes reutilizables y estilo tipo VSCode Dark+.
+El sistema de diseño sigue una paleta inspirada en **VSCode Dark+**, con tokens semánticos (`$syntaxFunction`, `$syntaxString`, `$accent`, etc.) aplicados de forma consistente en todos los componentes.
 
-## Tecnologías utilizadas
+---
 
-| Herramienta        | Uso principal                                      |
-|--------------------|----------------------------------------------------|
-| **React**          | Construcción de interfaz interactiva               |
-| **Vite**           | Bundler moderno para desarrollo rápido             |
-| **Radix Themes**   | Sistema de diseño accesible y escalable            |
-| **Stitches**       | Estilado con tokens semánticos y tipografía técnica|
-| **Reflex**         | Framework Python para frontend reactivo            |
-| **Django DRF**     | Backend robusto con APIs RESTful                   |
+## Stack
 
-## Migraciones recientes
+| Herramienta | Uso |
+|---|---|
+| **React 19** | Componentes y estado de la UI |
+| **Vite 7** | Bundler, dev server y build de producción |
+| **Stitches** | CSS-in-JS con tokens semánticos |
+| **Radix UI Themes** | Componentes accesibles y sistema de layout |
+| **Axios** | Consumo de la API REST del backend |
+| **Vitest + RTL** | Tests unitarios de componentes |
 
-- Migración completa de TailwindCSS a **Radix Themes + Stitches**
-- Refactor visual con tokens tipo VSCode (`$syntaxFunction`, `$syntaxString`, etc.)
-- Eliminación de dependencias innecesarias y código muerto
-- Integración avanzada Reflex + Django DRF con WebSockets y CORS resueltos
-- Componentes base (`Button`, `Card`, `Input`) reutilizables y escalables
+---
 
-## Componentes clave
+## Estructura de componentes
 
-- `TituloCard.jsx`: presentación principal con layout tipo editor
-- `ProjectCard.jsx`: muestra proyectos con imagen, descripción y enlaces
-- `SkillCard.jsx`: representa habilidades con íconos y colores semánticos
-- `ContactCard.jsx`: formulario visual con validación y envío a backend
-- `FooterCard.jsx`: enlaces a redes sociales y cierre profesional
-- `BasicMenu.jsx`: navegación accesible con foco gestionado
-- `SobreMi.jsx`: presentación personal con estilo técnico
+```
+src/
+├── components/
+│   ├── ui/                  # Primitivos reutilizables (Button, Card, Input)
+│   ├── TituloCard.jsx       # Hero: nombre, headline, avatar, CV, navegación
+│   ├── SobreMi.jsx          # Sección sobre mí
+│   ├── CarruselProjects.jsx # Carrusel de proyectos destacados
+│   ├── ProjectCard.jsx      # Tarjeta individual de proyecto
+│   ├── SkillsCarousel.jsx   # Carrusel de habilidades
+│   ├── SkillCard.jsx        # Tarjeta individual de habilidad
+│   ├── ContactCard.jsx      # Formulario de contacto conectado a la API
+│   ├── FooterCard.jsx       # Pie de página con redes sociales
+│   └── BasicMenu.jsx        # Menú de navegación accesible
+├── tests/
+│   ├── setup.js
+│   └── ContactCard.test.jsx # 7 tests: render, envío, feedback, errores
+├── App.jsx                  # Fetch de datos + manejo de loading/error
+├── main.jsx                 # Entry point con providers
+└── stitches.config.js       # Tokens de diseño VSCode Dark+
+```
+
+---
+
+## Variables de entorno
+
+Crea un archivo `.env` en la raíz del frontend (ver `.env.example`):
+
+```bash
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+En producción usa:
+
+```bash
+VITE_API_BASE_URL=https://nicolasandrescl.pythonanywhere.com
+```
+
+---
+
+## Correr en local
+
+```bash
+# Instalar dependencias
+npm install
+
+# Modo desarrollo (requiere backend corriendo en :8000)
+npm run dev
+```
+
+El frontend queda disponible en **http://localhost:5173**.
+
+---
+
+## Tests
+
+```bash
+# Correr tests una vez
+npm test
+
+# Modo watch (re-corre al guardar)
+npm run test:watch
+
+# Con reporte de cobertura
+npm run test:coverage
+```
+
+Suite actual: **7 tests** sobre `ContactCard` — render, actualización de campos, estado de carga, mensaje de éxito, mensaje de error, payload correcto a la API, y rehabilitación del botón.
+
+---
+
+## Build de producción
+
+```bash
+npm run build
+```
+
+El build se genera directamente en `../../backend/MiPortafolioDjango/static/frontend/dist/` junto con el manifest de Vite para que Django resuelva los nombres de assets hasheados automáticamente.
+
+---
 
 ## Conexión con el Backend
 
-Este frontend se conecta al backend a través de los siguientes endpoints:
+| Endpoint | Acción |
+|---|---|
+| `GET /api/projects/` | Carga proyectos en el carrusel |
+| `GET /api/skills/` | Carga habilidades en el carrusel |
+| `POST /api/contacto/` | Envía mensaje del formulario de contacto |
 
-- `GET /api/projects/` → muestra proyectos
-- `GET /api/skills/` → muestra habilidades
-- `POST /api/contacto/` → envía mensaje del formulario de contacto
+---
 
-La variable `VITE_API_BASE_URL` se configura en `.env` para consumir la API correctamente.
+## CI/CD
 
-## Vista referencial del portafolio
+GitHub Actions en `.github/workflows/ci.yml`:
+- Instala dependencias con `npm ci`
+- Corre los 7 tests con Vitest
+- Genera el build de producción con `VITE_API_BASE_URL` desde secrets
+- Sube el artefacto `dist/` por 7 días
+
+**Secret requerido en GitHub:** `VITE_API_BASE_URL`
+
+---
+
+## Vista referencial
 
 ![Portafolio Preview](./public/portafolio.png)
 
-## Instalación del proyecto
+---
+
+**Nicolás Andrés Cano Leal**
+LiveOps & BizOps | Python Backend Developer | Data Automation
