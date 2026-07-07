@@ -24,6 +24,21 @@ const iconMap = {
   HTML: 'https://img.icons8.com/color/48/html-5.png',
   TailwindCSS: 'https://img.icons8.com/color/48/tailwindcss.png',
   Bootstrap: 'https://img.icons8.com/color/48/bootstrap.png',
+
+  // — Stack "All in Django": bases de datos, backend, datos/scraping, testing, IaC —
+  PostgreSQL: 'https://img.icons8.com/color/48/postgreesql.png',
+  SQLite: 'https://img.icons8.com/color/48/database.png',
+  Pydantic: 'https://img.icons8.com/color/48/checked-checkbox.png',
+  Gunicorn: 'https://img.icons8.com/color/48/server.png',
+  Selenium: 'https://img.icons8.com/color/48/selenium-test-automation.png',
+  Requests: 'https://img.icons8.com/color/48/api.png',
+  BeautifulSoup: 'https://img.icons8.com/color/48/html.png',
+  pytest: 'https://img.icons8.com/color/48/test-passed.png',
+  Coverage: 'https://img.icons8.com/color/48/test-tube.png',
+  Terraform: 'https://img.icons8.com/color/48/terraform.png',
+  Kubernetes: 'https://img.icons8.com/color/48/kubernetes.png',
+  Helm: 'https://img.icons8.com/color/48/ship-wheel.png',
+  'GitHub Actions': 'https://img.icons8.com/color/48/github.png',
 };
 
 // 🎨 Estilos visuales
