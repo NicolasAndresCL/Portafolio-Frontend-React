@@ -58,11 +58,31 @@ const TechList = styled('p', {
   color: '$syntaxKeyword',
 });
 
+const FeaturedBadge = styled('span', {
+  alignSelf: 'center',
+  fontSize: '$sm',
+  fontFamily: '$mono',
+  fontWeight: '600',
+  color: '$syntaxFunction',
+  border: '1px solid $syntaxFunction',
+  borderRadius: '$md',
+  padding: '$1 $3',
+});
+
+const ActionsRow = styled('div', {
+  display: 'flex',
+  gap: '$3',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+});
+
 export default function ProjectCard({ project }) {
-  const { title, image, description, technologies, github_link } = project;
+  const { title, image, description, technologies, github_link, live_link, is_featured } = project;
 
   return (
     <Card elevation="strong" css={{ width: '100%', alignItems: 'center', gap: '$5' }}>
+      {is_featured && <FeaturedBadge>★ Destacado</FeaturedBadge>}
+
       <GradientTitle>{title}</GradientTitle>
 
       <ImageWrapper>
@@ -74,15 +94,30 @@ export default function ProjectCard({ project }) {
         <TechList>
           <strong>Tecnologías:</strong> {technologies}
         </TechList>
-        <Button
-          as="a"
-          href={github_link}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="primary"
-        >
-          Ir a GitHub
-        </Button>
+        <ActionsRow>
+          {github_link && (
+            <Button
+              as="a"
+              href={github_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+            >
+              Ir a GitHub
+            </Button>
+          )}
+          {live_link && (
+            <Button
+              as="a"
+              href={live_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="ghost"
+            >
+              Ver demo en vivo
+            </Button>
+          )}
+        </ActionsRow>
       </InfoBlock>
     </Card>
   );

@@ -73,6 +73,7 @@ export default function BasicMenu() {
       {isOpen && (
         <MenuList>
           <MenuItem href="#Sobre-mi">Sobre mí</MenuItem>
+          <MenuItem href="#Experiencia">Experiencia</MenuItem>
           <MenuItem href="#Proyectos">Projects</MenuItem>
           <MenuItem href="#Habilidades">Skills</MenuItem>
           <MenuItem href="#Contactame">Contacto</MenuItem>

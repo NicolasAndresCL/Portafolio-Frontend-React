@@ -1,6 +1,6 @@
 # Portafolio Frontend — React + Vite + Stitches + Radix UI
 
-Interfaz moderna y desacoplada de mi portafolio técnico. Construida con **React 19**, **Vite 7**, **Stitches** y **Radix UI Themes**, se conecta a una API REST Django/DRF y presenta mis proyectos, habilidades y formulario de contacto funcional.
+Interfaz moderna y desacoplada de mi portafolio técnico. Construida con **React 19**, **Vite 7**, **Stitches** y **Radix UI Themes**, se conecta a una API REST Django/DRF y presenta mi experiencia laboral, proyectos, habilidades y formulario de contacto funcional.
 
 El sistema de diseño sigue una paleta inspirada en **VSCode Dark+**, con tokens semánticos (`$syntaxFunction`, `$syntaxString`, `$accent`, etc.) aplicados de forma consistente en todos los componentes.
 
@@ -27,8 +27,10 @@ src/
 │   ├── ui/                  # Primitivos reutilizables (Button, Card, Input)
 │   ├── TituloCard.jsx       # Hero: nombre, headline, avatar, CV, navegación
 │   ├── SobreMi.jsx          # Sección sobre mí
+│   ├── Experience.jsx       # Timeline de experiencia laboral
+│   ├── ExperienceCard.jsx   # Tarjeta de experiencia con highlights
 │   ├── CarruselProjects.jsx # Carrusel de proyectos destacados
-│   ├── ProjectCard.jsx      # Tarjeta individual de proyecto
+│   ├── ProjectCard.jsx      # Tarjeta de proyecto (badge destacado + links condicionales)
 │   ├── SkillsCarousel.jsx   # Carrusel de habilidades
 │   ├── SkillCard.jsx        # Tarjeta individual de habilidad
 │   ├── ContactCard.jsx      # Formulario de contacto conectado a la API
@@ -36,7 +38,10 @@ src/
 │   └── BasicMenu.jsx        # Menú de navegación accesible
 ├── tests/
 │   ├── setup.js
-│   └── ContactCard.test.jsx # 7 tests: render, envío, feedback, errores
+│   ├── ContactCard.test.jsx    # 7 tests: render, envío, feedback, errores
+│   ├── ExperienceCard.test.jsx # 4 tests: campos, highlights, fechas
+│   ├── Experience.test.jsx     # 2 tests: render de lista, array vacío
+│   └── ProjectCard.test.jsx    # 5 tests: badge destacado, links condicionales
 ├── App.jsx                  # Fetch de datos + manejo de loading/error
 ├── main.jsx                 # Entry point con providers
 └── stitches.config.js       # Tokens de diseño VSCode Dark+
@@ -87,7 +92,14 @@ npm run test:watch
 npm run test:coverage
 ```
 
-Suite actual: **7 tests** sobre `ContactCard` — render, actualización de campos, estado de carga, mensaje de éxito, mensaje de error, payload correcto a la API, y rehabilitación del botón.
+Suite actual: **18 tests**
+
+| Archivo | Tests |
+|---|---|
+| `ContactCard.test.jsx` | Render, actualización de campos, estado de carga, éxito, error, payload correcto, rehabilitación del botón |
+| `ExperienceCard.test.jsx` | Render de campos, highlights como lista, etiqueta de fecha "Presente" vs. rango cerrado |
+| `Experience.test.jsx` | Render de una tarjeta por experiencia, tolerancia a array vacío |
+| `ProjectCard.test.jsx` | Badge destacado condicional, botones GitHub/demo según links presentes |
 
 ---
 
@@ -107,6 +119,7 @@ El build se genera directamente en `../../backend/MiPortafolioDjango/static/fron
 |---|---|
 | `GET /api/projects/` | Carga proyectos en el carrusel |
 | `GET /api/skills/` | Carga habilidades en el carrusel |
+| `GET /api/experience/` | Carga la experiencia laboral (con highlights anidados) |
 | `POST /api/contacto/` | Envía mensaje del formulario de contacto |
 
 ---
@@ -115,7 +128,7 @@ El build se genera directamente en `../../backend/MiPortafolioDjango/static/fron
 
 GitHub Actions en `.github/workflows/ci.yml`:
 - Instala dependencias con `npm ci`
-- Corre los 7 tests con Vitest
+- Corre los 18 tests con Vitest
 - Genera el build de producción con `VITE_API_BASE_URL` desde secrets
 - Sube el artefacto `dist/` por 7 días
 

@@ -2,6 +2,7 @@ import React from 'react';
 import TituloCard from './TituloCard';
 import ButtonGroup from './ButtonGroup';
 import SobreMi from './SobreMi';
+import Experience from './Experience';
 import CarruselProjects from './CarruselProjects';
 import SkillsCarousel from './SkillsCarousel';
 import ContactCard from './ContactCard';
@@ -48,7 +49,7 @@ const PlaceholderText = styled('p', {
   color: '$syntaxComment',
 });
 
-export default function Home({ projects, skills }) {
+export default function Home({ projects, skills, experiences }) {
   return (
     <Main>
       {/* Título principal */}
@@ -60,6 +61,16 @@ export default function Home({ projects, skills }) {
       {/* Sección Sobre mí */}
       <Section id="Sobre-mi">
         <SobreMi />
+      </Section>
+
+      {/* Sección Experiencia laboral */}
+      <Section id="Experiencia">
+        <SectionTitle>Experiencia laboral</SectionTitle>
+        {experiences.length > 0 ? (
+          <Experience experiences={experiences} />
+        ) : (
+          <PlaceholderText>¡Pronto compartiré mi experiencia laboral!</PlaceholderText>
+        )}
       </Section>
 
       {/* Sección Proyectos */}

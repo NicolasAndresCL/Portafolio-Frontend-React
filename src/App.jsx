@@ -45,20 +45,23 @@ const LoadingText = styled(Text, {
 export default function App() {
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
+  const [experiences, setExperiences] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [projectsRes, skillsRes] = await Promise.all([
+        const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
           axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/projects/`),
-          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/skills/`)
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/skills/`),
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/experience/`)
         ]);
         setProjects(projectsRes.data);
         setSkills(skillsRes.data);
+        setExperiences(experiencesRes.data);
       } catch (err) {
-        setError('No se pudieron cargar los datos (proyectos o habilidades).');
+        setError('No se pudieron cargar los datos (proyectos, habilidades o experiencia).');
         console.error(err);
       } finally {
         setLoading(false);
@@ -84,5 +87,5 @@ export default function App() {
       </Wrapper>
     );
   }
-  return <Home projects={projects} skills={skills} />;
+  return <Home projects={projects} skills={skills} experiences={experiences} />;
 }
