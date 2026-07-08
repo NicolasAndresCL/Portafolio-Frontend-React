@@ -57,9 +57,11 @@ export default function App() {
           axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/skills/`),
           axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/experience/`)
         ]);
-        setProjects(projectsRes.data);
-        setSkills(skillsRes.data);
-        setExperiences(experiencesRes.data);
+        // La API puede responder paginada ({ results: [...] }) o como lista simple.
+        const unwrap = (data) => data?.results ?? data;
+        setProjects(unwrap(projectsRes.data));
+        setSkills(unwrap(skillsRes.data));
+        setExperiences(unwrap(experiencesRes.data));
       } catch (err) {
         setError('No se pudieron cargar los datos (proyectos, habilidades o experiencia).');
         console.error(err);
