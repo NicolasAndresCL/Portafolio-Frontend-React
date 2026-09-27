@@ -39,6 +39,13 @@ const iconMap = {
   Kubernetes: 'https://img.icons8.com/color/48/kubernetes.png',
   Helm: 'https://img.icons8.com/color/48/ship-wheel.png',
   'GitHub Actions': 'https://img.icons8.com/color/48/github.png',
+  // Stack del CV 2026 (DevOps + datos de LiveOps)
+  Java: 'https://img.icons8.com/color/48/java-coffee-cup-logo.png',
+  Linux: 'https://img.icons8.com/color/48/linux.png',
+  Bash: 'https://img.icons8.com/color/48/bash.png',
+  Jenkins: 'https://img.icons8.com/color/48/jenkins.png',
+  BigQuery: 'https://img.icons8.com/color/48/google-cloud.png',
+  'Google Sheets API': 'https://img.icons8.com/color/48/google-sheets.png',
 };
 
 // 🎨 Estilos visuales
