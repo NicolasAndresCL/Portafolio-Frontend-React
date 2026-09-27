@@ -2,7 +2,9 @@ import React from 'react';
 import { Flex } from '@radix-ui/themes';
 import { styled } from '@/stitches.config';
 import BasicMenu from './BasicMenu';
-import profilePhoto from '@/assets/perfil-foto-nc.png';
+import profilePhoto from '@/assets/perfil-foto-nc.webp';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // 🎨 Estilos con tokens VSCode Dark+
 const Section = styled('section', {
@@ -133,8 +135,12 @@ export default function TituloCard() {
               </Subtitle>
               <Flex gap="3" mt="3" justify="center" wrap="wrap">
                 <BasicMenu />
-                <DownloadLink href="/NicolasCano_BackendDeveloper_CV.pdf" download>
-                  Descargar CV →
+                {/* URLs estables del backend: sobreviven a cada build del frontend. */}
+                <DownloadLink href={`${API_BASE_URL}/cv/`} target="_blank" rel="noopener">
+                  Descargar CV (ES) →
+                </DownloadLink>
+                <DownloadLink href={`${API_BASE_URL}/cv/en/`} target="_blank" rel="noopener">
+                  Resume (EN) →
                 </DownloadLink>
               </Flex>
             </TextBlock>
