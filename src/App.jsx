@@ -28,10 +28,12 @@ const Spinner = styled('div', {
   },
 });
 
-const ErrorText = styled(Text, {
+const ErrorBanner = styled('div', {
+  padding: '$2 $4',
   color: '$syntaxError',
-  fontSize: '$lg',
-  fontWeight: 'medium',
+  backgroundColor: '$surface',
+  borderBottom: '1px solid $border',
+  fontSize: '$sm',
   textAlign: 'center',
 });
 
@@ -51,23 +53,27 @@ export default function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const [projectsRes, skillsRes, experiencesRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/projects/`),
-          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/skills/`),
-          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/experience/`)
-        ]);
-        // La API puede responder paginada ({ results: [...] }) o como lista simple.
-        const unwrap = (data) => data?.results ?? data;
-        setProjects(unwrap(projectsRes.data));
-        setSkills(unwrap(skillsRes.data));
-        setExperiences(unwrap(experiencesRes.data));
-      } catch (err) {
-        setError('No se pudieron cargar los datos (proyectos, habilidades o experiencia).');
-        console.error(err);
-      } finally {
-        setLoading(false);
+      // allSettled: si falla un endpoint (o la API entera), el resto del sitio
+      // —presentación, contacto y descarga del CV— sigue visible.
+      const base = import.meta.env.VITE_API_BASE_URL;
+      const results = await Promise.allSettled([
+        axios.get(`${base}/api/projects/`),
+        axios.get(`${base}/api/skills/`),
+        axios.get(`${base}/api/experience/`),
+      ]);
+      // La API puede responder paginada ({ results: [...] }) o como lista simple.
+      const unwrap = (res) => (res.status === 'fulfilled' ? res.value.data?.results ?? res.value.data : []);
+      const [projectsRes, skillsRes, experiencesRes] = results;
+      setProjects(unwrap(projectsRes));
+      setSkills(unwrap(skillsRes));
+      setExperiences(unwrap(experiencesRes));
+
+      const failed = results.filter((res) => res.status === 'rejected');
+      if (failed.length) {
+        setError('No se pudo cargar parte del contenido (proyectos, habilidades o experiencia).');
+        failed.forEach((res) => console.error(res.reason));
       }
+      setLoading(false);
     };
 
     fetchData();
@@ -82,12 +88,10 @@ export default function App() {
     );
   }
 
-  if (error) {
-    return (
-      <Wrapper>
-        <ErrorText>{error}</ErrorText>
-      </Wrapper>
-    );
-  }
-  return <Home projects={projects} skills={skills} experiences={experiences} />;
+  return (
+    <>
+      {error && <ErrorBanner role="alert">{error}</ErrorBanner>}
+      <Home projects={projects} skills={skills} experiences={experiences} />
+    </>
+  );
 }
