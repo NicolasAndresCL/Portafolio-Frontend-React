@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { styled } from '@/stitches.config';
 
-// 🎨 Estilos con tokens VSCode Dark+
-const MenuWrapper = styled('div', {
-  position: 'relative',
-  display: 'inline-block',
-  textAlign: 'left',
-  zIndex: 20,
-});
+// Menú sobre la primitiva de Radix (sin estilos): el posicionamiento lo calcula Radix con
+// detección de colisiones, así que el panel se reubica para no salir de la pantalla en
+// celular y tablet vertical. Antes era un div con `position: absolute; right: 0` de 16rem
+// anclado a un botón pegado al borde izquierdo: se salía ~120 px en un celular.
+// Además aporta cierre al elegir, con Escape o tocando fuera, foco y navegación por teclado
+// y roles ARIA (menu / menuitem).
 
+// 🎨 Estilos con tokens VSCode Dark+
 const MenuButton = styled('button', {
   display: 'inline-flex',
   justifyContent: 'center',
@@ -34,11 +35,12 @@ const MenuButton = styled('button', {
   },
 });
 
-const MenuList = styled('div', {
-  position: 'absolute',
-  right: 0,
-  marginTop: '$2',
+const MenuList = styled(DropdownMenu.Content, {
+  // Nunca más ancho que el espacio libre que calcula Radix (celulares de 320 px).
   width: '16rem',
+  maxWidth: 'var(--radix-dropdown-menu-content-available-width)',
+  maxHeight: 'var(--radix-dropdown-menu-content-available-height)',
+  overflowY: 'auto',
   backgroundColor: '$surface',
   borderRadius: '$md',
   boxShadow: '$strong',
@@ -47,52 +49,55 @@ const MenuList = styled('div', {
   zIndex: 30,
 });
 
-const MenuItem = styled('a', {
+const MenuItem = styled(DropdownMenu.Item, {
   display: 'block',
   padding: '$2 $4',
   fontSize: '$sm',
   fontFamily: '$mono',
   color: '$syntaxKeyword',
   textDecoration: 'none',
+  outline: 'none',
+  cursor: 'pointer',
   transition: 'background-color 0.2s ease',
 
-  '&:hover': {
+  // Radix marca con data-highlighted el ítem activo (hover o teclado).
+  '&:hover, &[data-highlighted]': {
     backgroundColor: '$panel',
     color: '$syntaxFunction',
   },
 });
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const LINKS = [
+  { href: '#Sobre-mi', label: 'Sobre mí' },
+  { href: '#Experiencia', label: 'Experiencia' },
+  { href: '#Proyectos', label: 'Projects' },
+  { href: '#Habilidades', label: 'Skills' },
+  { href: '#Contactame', label: 'Contacto' },
+  { href: `${API_BASE_URL}/api/schema/swagger-ui/`, label: 'Swagger UI', external: true },
+  { href: `${API_BASE_URL}/admin/`, label: 'Admin', external: true },
+];
+
 export default function BasicMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
-
   return (
-    <MenuWrapper>
-      <MenuButton onClick={toggleMenu}>Menú</MenuButton>
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger asChild>
+        <MenuButton>Menú</MenuButton>
+      </DropdownMenu.Trigger>
 
-      {isOpen && (
-        <MenuList>
-          <MenuItem href="#Sobre-mi">Sobre mí</MenuItem>
-          <MenuItem href="#Experiencia">Experiencia</MenuItem>
-          <MenuItem href="#Proyectos">Projects</MenuItem>
-          <MenuItem href="#Habilidades">Skills</MenuItem>
-          <MenuItem href="#Contactame">Contacto</MenuItem>
-          <MenuItem
-            href={`${import.meta.env.VITE_API_BASE_URL}/api/schema/swagger-ui/`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Swagger UI
-          </MenuItem>
-          <MenuItem
-            href={`${import.meta.env.VITE_API_BASE_URL}/admin/`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Admin
-          </MenuItem>
+      {/* Portal: el panel se monta en <body> y no lo recorta ningún contenedor. */}
+      <DropdownMenu.Portal>
+        <MenuList align="start" sideOffset={8} collisionPadding={12}>
+          {LINKS.map(({ href, label, external }) => (
+            <MenuItem key={href} asChild>
+              <a href={href} {...(external && { target: '_blank', rel: 'noopener noreferrer' })}>
+                {label}
+              </a>
+            </MenuItem>
+          ))}
         </MenuList>
-      )}
-    </MenuWrapper>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 }
