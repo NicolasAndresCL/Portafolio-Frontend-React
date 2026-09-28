@@ -14,6 +14,7 @@ El sistema de diseño sigue una paleta inspirada en **VSCode Dark+**, con tokens
 | **Vite 7** | Bundler, dev server y build de producción |
 | **Stitches** | CSS-in-JS con tokens semánticos |
 | **Radix UI Themes** | Componentes accesibles y sistema de layout |
+| **Radix DropdownMenu** (primitiva) | Menú de navegación con detección de colisiones, teclado y ARIA |
 | **Axios** | Consumo de la API REST del backend |
 | **Vitest + RTL** | Tests unitarios de componentes |
 
@@ -35,14 +36,16 @@ src/
 │   ├── SkillCard.jsx        # Tarjeta individual de habilidad
 │   ├── ContactCard.jsx      # Formulario de contacto conectado a la API
 │   ├── FooterCard.jsx       # Pie de página con redes sociales
-│   └── BasicMenu.jsx        # Menú de navegación accesible
+│   └── BasicMenu.jsx        # Menú (Radix DropdownMenu): no se sale de la pantalla en celular/tablet
 ├── tests/
 │   ├── setup.js
+│   ├── App.test.jsx            # 4 tests: paginación completa, API caída, fallo parcial
+│   ├── BasicMenu.test.jsx      # 4 tests: ARIA, 7 enlaces, cierre con Escape y al elegir
 │   ├── ContactCard.test.jsx    # 7 tests: render, envío, feedback, errores
 │   ├── ExperienceCard.test.jsx # 4 tests: campos, highlights, fechas
 │   ├── Experience.test.jsx     # 2 tests: render de lista, array vacío
 │   └── ProjectCard.test.jsx    # 5 tests: badge destacado, links condicionales
-├── App.jsx                  # Fetch de datos + manejo de loading/error
+├── App.jsx                  # Fetch de todas las páginas de la API + degradación si falla
 ├── main.jsx                 # Entry point con providers
 └── stitches.config.js       # Tokens de diseño VSCode Dark+
 ```
@@ -92,10 +95,12 @@ npm run test:watch
 npm run test:coverage
 ```
 
-Suite actual: **18 tests**
+Suite actual: **26 tests**
 
 | Archivo | Tests |
 |---|---|
+| `App.test.jsx` | Respuestas paginadas, recorrido de `next` (todas las páginas), sitio visible con aviso si la API cae, fallo de un solo endpoint |
+| `BasicMenu.test.jsx` | Botón con `aria-haspopup`, los 7 enlaces como `menuitem`, externos en pestaña nueva, cierre con Escape y al elegir una sección |
 | `ContactCard.test.jsx` | Render, actualización de campos, estado de carga, éxito, error, payload correcto, rehabilitación del botón |
 | `ExperienceCard.test.jsx` | Render de campos, highlights como lista, etiqueta de fecha "Presente" vs. rango cerrado |
 | `Experience.test.jsx` | Render de una tarjeta por experiencia, tolerancia a array vacío |
@@ -117,7 +122,7 @@ El build se genera directamente en `../../backend/MiPortafolioDjango/static/fron
 
 | Endpoint | Acción |
 |---|---|
-| `GET /api/projects/` | Carga proyectos en el carrusel |
+| `GET /api/projects/` | Carga proyectos en el carrusel (sigue `next`: todas las páginas) |
 | `GET /api/skills/` | Carga habilidades en el carrusel |
 | `GET /api/experience/` | Carga la experiencia laboral (con highlights anidados) |
 | `POST /api/contacto/` | Envía mensaje del formulario de contacto |
@@ -128,7 +133,7 @@ El build se genera directamente en `../../backend/MiPortafolioDjango/static/fron
 
 GitHub Actions en `.github/workflows/ci.yml`:
 - Instala dependencias con `npm ci`
-- Corre los 18 tests con Vitest
+- Corre los 26 tests con Vitest
 - Genera el build de producción con `VITE_API_BASE_URL` desde secrets
 - Sube el artefacto `dist/` por 7 días
 
