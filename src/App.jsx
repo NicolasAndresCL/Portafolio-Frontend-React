@@ -44,6 +44,21 @@ const LoadingText = styled(Text, {
   textAlign: 'center',
 });
 
+// La API pagina de a 50 ({ count, next, results }): se recorre `next` hasta el final para no
+// perder elementos (con 54 skills, las 4 de menor nivel quedaban fuera). Si responde una lista
+// simple, se devuelve tal cual.
+async function fetchAll(url) {
+  const items = [];
+  let next = url;
+  while (next) {
+    const { data } = await axios.get(next);
+    if (!data?.results) return data;
+    items.push(...data.results);
+    next = data.next;
+  }
+  return items;
+}
+
 export default function App() {
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -57,12 +72,11 @@ export default function App() {
       // —presentación, contacto y descarga del CV— sigue visible.
       const base = import.meta.env.VITE_API_BASE_URL;
       const results = await Promise.allSettled([
-        axios.get(`${base}/api/projects/`),
-        axios.get(`${base}/api/skills/`),
-        axios.get(`${base}/api/experience/`),
+        fetchAll(`${base}/api/projects/`),
+        fetchAll(`${base}/api/skills/`),
+        fetchAll(`${base}/api/experience/`),
       ]);
-      // La API puede responder paginada ({ results: [...] }) o como lista simple.
-      const unwrap = (res) => (res.status === 'fulfilled' ? res.value.data?.results ?? res.value.data : []);
+      const unwrap = (res) => (res.status === 'fulfilled' ? res.value : []);
       const [projectsRes, skillsRes, experiencesRes] = results;
       setProjects(unwrap(projectsRes));
       setSkills(unwrap(skillsRes));

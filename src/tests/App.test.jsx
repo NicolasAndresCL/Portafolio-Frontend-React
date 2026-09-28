@@ -42,6 +42,20 @@ describe('App', () => {
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
+  it('recorre todas las páginas de la API (no se pierden skills tras la página 1)', async () => {
+    axios.get.mockImplementation((url) => {
+      if (url.endsWith('/api/skills/')) {
+        return Promise.resolve({ data: { count: 3, next: 'https://x/api/skills/?page=2', results: [{ id: 1 }, { id: 2 }] } });
+      }
+      if (url.endsWith('?page=2')) {
+        return Promise.resolve({ data: { count: 3, next: null, results: [{ id: 3 }] } });
+      }
+      return Promise.resolve({ data: { count: 1, next: null, results: [{ id: 1 }] } });
+    });
+    render(<App />);
+    expect(await screen.findByTestId('home')).toHaveTextContent('1-3-1');
+  });
+
   it('si la API cae, igual renderiza el sitio (y el botón del CV) con un aviso', async () => {
     axios.get.mockRejectedValue(new Error('Network Error'));
     render(<App />);
