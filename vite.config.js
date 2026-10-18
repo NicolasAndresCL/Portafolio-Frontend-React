@@ -1,9 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import pkg from './package.json' with { type: 'json' };
 
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  // Versión visible en el footer: una sola fuente de verdad (package.json).
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(pkg.version),
+  },
   // En producción los assets viven en /static/frontend/dist/assets/
   // En desarrollo Vite los sirve desde / directamente
   base: mode === 'production' ? '/static/frontend/dist/' : '/',

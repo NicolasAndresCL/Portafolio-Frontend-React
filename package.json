@@ -1,6 +1,6 @@
 {
   "name": "portafolio-frontend-react",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Este proyecto representa la interfaz moderna y desacoplada de mi portafolio técnico como Backend Developer, desarrollado con **React**, **Vite** y **TailwindCSS**. Se conecta a una API REST construida con Django/DRF y expone mis proyectos, habilidades y formulario de contacto.",
   "main": "eslint.config.js",
   "dependencies": {
