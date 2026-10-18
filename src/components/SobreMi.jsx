@@ -37,13 +37,16 @@ export default function SobreMi() {
       <Content>
         <Title>Sobre mí</Title>
         <Paragraph>
-          Desarrollador Backend Python que empezó construyendo APIs y hoy mira el panorama completo: no solo cómo se construye un sistema, sino cómo se opera, se automatiza y se mantiene en pie bajo carga real.
+          Backend Engineer en Python con la mira puesta en SRE: construyo servicios pensando en cómo se operan, no solo en cómo se escriben.
         </Paragraph>
         <Paragraph>
-          Me especializo en Django y DRF para construir APIs limpias y bien documentadas. En mi día a día en operaciones (LiveOps/BizOps) convierto necesidades reales en herramientas propias —automatización con Docker y Jenkins, tableros analíticos con Streamlit— porque creo que el mejor software nace de un problema concreto que alguien necesita resolver.
+          Desde marzo de 2026 soy el único desarrollador del equipo de operaciones (LiveOps/BizOps) de PedidosYa. Reemplazo procesos manuales por servicios Python testeados que corren desatendidos contra BigQuery, Google Sheets y sistemas internos: un bot de operaciones en tiempo real, un recolector de dossiers de incidencias con Django/DRF y una sincronización idempotente de datos.
         </Paragraph>
         <Paragraph>
-          Mi camino apunta hacia la ingeniería de confiabilidad (SRE): sistemas que escalan, se observan y se recuperan solos.
+          Llevo cada proyecto hasta producción con CI/CD (GitHub Actions y Jenkins), contenedores e infraestructura como código con Terraform, Kubernetes y Helm. Este portafolio es un ejemplo: Django + React, con CI, CD y PostgreSQL en la nube.
+        </Paragraph>
+        <Paragraph>
+          Mi objetivo es Site Reliability Engineering: sistemas que escalan, se observan y se recuperan solos.
         </Paragraph>
         <Note>// Siempre aprendiendo, siempre refactorizando</Note>
       </Content>

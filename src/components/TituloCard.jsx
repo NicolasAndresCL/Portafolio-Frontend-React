@@ -130,6 +130,13 @@ const Role = styled('p', {
   marginTop: '$2',
 });
 
+const Stack = styled('p', {
+  fontSize: '$xs',
+  fontFamily: '$mono',
+  color: '$syntaxVariable',
+  marginTop: '$1',
+});
+
 const Description = styled('p', {
   fontSize: '$sm',
   fontFamily: '$body',
@@ -167,10 +174,10 @@ export default function TituloCard() {
             <AvatarCard>
               <AvatarImage src={profilePhoto} alt="Foto de Nicolás Cano" />
               <Title style={{ fontSize: '1.25rem', marginTop: '1rem' }}>Nicolás Cano</Title>
-              <Role>Backend Python Developer | Automation & Reliability</Role>
-              <Description>
-                Arquitectura modular, escalabilidad y documentación impecable.
-              </Description>
+              {/* Titular oficial = el de LinkedIn y el del CV (docs/cv del backend): cambiarlos juntos. */}
+              <Role>Backend Engineer → SRE</Role>
+              <Stack>Python · Django · Kubernetes · Terraform · CI/CD</Stack>
+              <Description>Único desarrollador del equipo de operaciones · PedidosYa</Description>
             </AvatarCard>
           </ContentWrapper>
         </HeroCard>
