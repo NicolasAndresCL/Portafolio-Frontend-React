@@ -1,151 +1,167 @@
-# Portafolio Frontend — React + Vite + Stitches + Radix UI
+# Portafolio Frontend — la cara de mi portafolio, en React con tres temas
 
-Interfaz moderna y desacoplada de mi portafolio técnico. Construida con **React 19**, **Vite 7**, **Stitches** y **Radix UI Themes**, se conecta a una API REST Django/DRF y presenta mi experiencia laboral, proyectos, habilidades y formulario de contacto funcional.
+[![CI](https://github.com/NicolasAndresCL/Portafolio-Frontend-React/actions/workflows/ci.yml/badge.svg)](https://github.com/NicolasAndresCL/Portafolio-Frontend-React/actions/workflows/ci.yml)
+![Versión](https://img.shields.io/badge/versi%C3%B3n-2.0.0-blue)
+![React](https://img.shields.io/badge/react-19-61DAFB)
+![Node](https://img.shields.io/badge/node-22-339933)
 
-El sistema de diseño sigue una paleta inspirada en **VSCode Dark+**, con tokens semánticos (`$syntaxFunction`, `$syntaxString`, `$accent`, etc.) aplicados de forma consistente en todos los componentes.
-
----
-
-## Stack
-
-| Herramienta | Uso |
+| | |
 |---|---|
-| **React 19** | Componentes y estado de la UI |
-| **Vite 7** | Bundler, dev server y build de producción |
-| **Stitches** | CSS-in-JS con tokens semánticos |
-| **Radix UI Themes** | Componentes accesibles y sistema de layout |
-| **Radix DropdownMenu** (primitiva) | Menú de navegación con detección de colisiones, teclado y ARIA |
-| **Axios** | Consumo de la API REST del backend |
-| **Vitest + RTL** | Tests unitarios de componentes |
+| **Versión** | 2.0.0 |
+| **Fecha** | 17 de octubre de 2026 |
+| **Autor** | [Nicolás Andrés Cano Leal](#autor) |
+
+Interfaz desacoplada de mi portafolio técnico. Construida con **React 19**, **Vite 7**, **Stitches** y
+**Radix UI**, consume la API REST Django/DRF y presenta mi experiencia laboral, proyectos, habilidades y
+un formulario de contacto funcional. Desde la **v2.0.0** trae **tres temas visuales** (Cian, Violeta y
+Ámbar) que se cambian desde la esquina superior derecha.
+
+- **Frontend**: React 19 + Vite 7 · Stitches (tokens por tema) · Radix DropdownMenu · Swiper
+- **Backend**: [MiPortafolioDjango](https://github.com/NicolasAndresCL/MiPortafolioDjango) (Django 5.2 + DRF)
+- **Despliegue**: el build se **embebe en el backend** y Django lo sirve en PythonAnywhere
+- **Fuente de verdad de los datos**: la API (el contenido se gestiona vía Swagger en producción)
 
 ---
 
-## Estructura de componentes
+## Arquitectura
 
 ```
 src/
+├── themes/
+│   └── palettes.js           # los 3 temas como datos puros + leer/guardar/aplicar el tema
 ├── components/
-│   ├── ui/                  # Primitivos reutilizables (Button, Card, Input)
-│   ├── TituloCard.jsx       # Hero: nombre, headline, avatar, CV, navegación
-│   ├── SobreMi.jsx          # Sección sobre mí
-│   ├── Experience.jsx       # Timeline de experiencia laboral
-│   ├── ExperienceCard.jsx   # Tarjeta de experiencia con highlights
-│   ├── CarruselProjects.jsx # Carrusel de proyectos destacados
-│   ├── ProjectCard.jsx      # Tarjeta de proyecto (badge destacado + links condicionales)
-│   ├── SkillsCarousel.jsx   # Carrusel de habilidades
-│   ├── SkillCard.jsx        # Tarjeta individual de habilidad
-│   ├── ContactCard.jsx      # Formulario de contacto conectado a la API
-│   ├── FooterCard.jsx       # Pie de página con redes sociales
-│   └── BasicMenu.jsx        # Menú (Radix DropdownMenu): no se sale de la pantalla en celular/tablet
-├── tests/
-│   ├── setup.js
-│   ├── App.test.jsx            # 4 tests: paginación completa, API caída, fallo parcial
-│   ├── BasicMenu.test.jsx      # 4 tests: ARIA, 7 enlaces, cierre con Escape y al elegir
-│   ├── ContactCard.test.jsx    # 7 tests: render, envío, feedback, errores
-│   ├── ExperienceCard.test.jsx # 4 tests: campos, highlights, fechas
-│   ├── Experience.test.jsx     # 2 tests: render de lista, array vacío
-│   └── ProjectCard.test.jsx    # 5 tests: badge destacado, links condicionales
-├── App.jsx                  # Fetch de todas las páginas de la API + degradación si falla
-├── main.jsx                 # Entry point con providers
-└── stitches.config.js       # Tokens de diseño VSCode Dark+
+│   ├── ui/                   # primitivos reutilizables (Button, Card, Input)
+│   ├── ThemeSwitcher.jsx     # selector de tema fijo arriba a la derecha (Radix RadioGroup)
+│   ├── TituloCard.jsx        # hero: nombre en degradado del tema, avatar, CV, navegación
+│   ├── BasicMenu.jsx         # menú (Radix DropdownMenu): no se sale de la pantalla en celular
+│   ├── SobreMi.jsx           # sección sobre mí (texto fijo)
+│   ├── Experience.jsx        # timeline de experiencia laboral
+│   ├── ExperienceCard.jsx    # tarjeta de experiencia con highlights
+│   ├── CarruselProjects.jsx  # carrusel de proyectos (Swiper)
+│   ├── ProjectCard.jsx       # badge destacado + links condicionales
+│   ├── SkillsCarousel.jsx    # carrusel de habilidades
+│   ├── SkillCard.jsx         # tarjeta de habilidad (iconMap por nombre exacto)
+│   ├── ContactCard.jsx       # formulario conectado a POST /api/contacto/
+│   └── FooterCard.jsx        # redes sociales + versión (v2.0.0, desde package.json)
+├── tests/                    # Vitest + RTL (35 tests)
+├── App.jsx                   # recorre todas las páginas de la API; degrada si falla
+├── main.jsx                  # entry point (Radix Theme sin fondo propio)
+└── stitches.config.js        # tokens base (= tema Cian) + una clase theme-<key> por tema
+index.html                    # fuentes + script anti-parpadeo del tema (solo en desarrollo)
 ```
+
+**Flujo:** navegador → React → Axios → API Django (`/api/...`). En producción el HTML lo sirve Django
+desde `templates/index.html` del backend, no el `index.html` de Vite.
 
 ---
 
-## Variables de entorno
+## Temas
 
-Crea un archivo `.env` en la raíz del frontend (ver `.env.example`):
+| Tema | Carácter | Paleta | Titulares |
+|---|---|---|---|
+| **Cian** (por defecto) | Medianoche eléctrica, aurora y brillo | `#070b14` · cian `#22d3ee` → índigo `#818cf8` → magenta `#e879f9` | Space Grotesk |
+| **Violeta** | Claro y vibrante | blanco nube `#fbf8ff` · violeta `#7c4dff` · rojo `#e63946` · dorado `#ffbe0b` | Fredoka |
+| **Ámbar** | Sobrio, cálido e imponente | brasa `#130d0a` · hueso `#efe6d6` · óxido `#d9622b` | Cinzel |
 
-```bash
-VITE_API_BASE_URL=http://localhost:8000
-```
-
-En producción usa:
-
-```bash
-VITE_API_BASE_URL=https://nicolasandrescl.pythonanywhere.com
-```
+- El botón de la esquina superior derecha abre el selector (teclado, Escape y lector de pantalla
+  incluidos: cada tema es un `menuitemradio`).
+- La elección se guarda en `localStorage` (`portafolio-theme`). Si el navegador lo bloquea, se usa Cian.
+- Al recargar no hay parpadeo: un script inline aplica la clase del tema antes de que cargue React.
+- **Agregar un tema**: un objeto más en `src/themes/palettes.js` con **todos** los tokens (un test lo
+  exige) + su clave en el script anti-parpadeo de `index.html` **y** de `templates/index.html` del backend.
 
 ---
 
 ## Correr en local
 
+Requiere Node 22 (el mismo del CI) y el backend en `:8000`.
+
 ```bash
-# Instalar dependencias
+cp .env.example .env      # VITE_API_BASE_URL=http://localhost:8000
 npm install
-
-# Modo desarrollo (requiere backend corriendo en :8000)
-npm run dev
+npm run dev               # http://localhost:5173
 ```
 
-El frontend queda disponible en **http://localhost:5173**.
-
----
-
-## Tests
+Para verlo tal como en producción (frontend embebido en Django, con Postgres), desde el backend:
 
 ```bash
-# Correr tests una vez
-npm test
-
-# Modo watch (re-corre al guardar)
-npm run test:watch
-
-# Con reporte de cobertura
-npm run test:coverage
+npm run build                                   # escribe el dist/ en el repo backend
+cd ../../backend/MiPortafolioDjango
+docker compose -p portafolio-temas up -d --build --wait   # http://localhost:8000
+docker compose -p portafolio-temas down -v      # al terminar (borra el volumen de prueba)
 ```
 
-Suite actual: **26 tests**
-
-| Archivo | Tests |
-|---|---|
-| `App.test.jsx` | Respuestas paginadas, recorrido de `next` (todas las páginas), sitio visible con aviso si la API cae, fallo de un solo endpoint |
-| `BasicMenu.test.jsx` | Botón con `aria-haspopup`, los 7 enlaces como `menuitem`, externos en pestaña nueva, cierre con Escape y al elegir una sección |
-| `ContactCard.test.jsx` | Render, actualización de campos, estado de carga, éxito, error, payload correcto, rehabilitación del botón |
-| `ExperienceCard.test.jsx` | Render de campos, highlights como lista, etiqueta de fecha "Presente" vs. rango cerrado |
-| `Experience.test.jsx` | Render de una tarjeta por experiencia, tolerancia a array vacío |
-| `ProjectCard.test.jsx` | Badge destacado condicional, botones GitHub/demo según links presentes |
+> Con el `dist/` de producción, la API se consulta en PythonAnywhere y desde `localhost` la bloquea CORS:
+> el sitio muestra el aviso de contenido parcial. Es lo esperado en esa prueba local.
 
 ---
 
-## Build de producción
+## La interfaz
+
+- Hero con el nombre en el degradado del tema, avatar con brillo y descarga del CV (ES / EN).
+- Menú de navegación por secciones + Swagger y Admin.
+- Experiencia laboral, carrusel de proyectos y de habilidades, formulario de contacto.
+- **Si la API cae** (o falla un endpoint), el sitio igual se renderiza con lo disponible y muestra un aviso
+  `role="alert"`; el nombre, el contacto y el CV siguen visibles.
+
+---
+
+## Variables de entorno
+
+| Variable | Por defecto | Para qué |
+|---|---|---|
+| **`VITE_API_BASE_URL`** | — | Base de la API. Local: `http://localhost:8000`; producción: `https://nicolasandrescl.pythonanywhere.com` (`.env.production`) |
+
+---
+
+## Verificación
 
 ```bash
-npm run build
+npm test               # 35 tests
+npm run test:coverage  # con cobertura
+npm run build          # build de producción (dist/ en el repo backend)
 ```
 
-El build se genera directamente en `../../backend/MiPortafolioDjango/static/frontend/dist/` junto con el manifest de Vite para que Django resuelva los nombres de assets hasheados automáticamente.
-
----
-
-## Conexión con el Backend
-
-| Endpoint | Acción |
+| Archivo | Qué cubre |
 |---|---|
-| `GET /api/projects/` | Carga proyectos en el carrusel (sigue `next`: todas las páginas) |
-| `GET /api/skills/` | Carga habilidades en el carrusel |
-| `GET /api/experience/` | Carga la experiencia laboral (con highlights anidados) |
-| `POST /api/contacto/` | Envía mensaje del formulario de contacto |
+| `App.test.jsx` | Respuestas paginadas, recorrido de `next`, sitio visible con aviso si la API cae, fallo de un solo endpoint |
+| `BasicMenu.test.jsx` | `aria-haspopup`, los 7 enlaces como `menuitem`, externos en pestaña nueva, cierre con Escape y al elegir |
+| `ThemeSwitcher.test.jsx` | Arranca en Cian, respeta el tema guardado, lista 3 temas y aplica/guarda el elegido |
+| `palettes.test.js` | 3 temas con nombre de color, mismos tokens en todos, fallback ante clave desconocida o `localStorage` bloqueado, una sola clase sobre `<html>` |
+| `ContactCard.test.jsx` | Render, campos, carga, éxito, error, payload, rehabilitación del botón |
+| `ExperienceCard.test.jsx` | Campos, highlights como lista, "Presente" vs. rango cerrado |
+| `Experience.test.jsx` | Una tarjeta por experiencia, tolerancia a array vacío |
+| `ProjectCard.test.jsx` | Badge destacado condicional, botones GitHub/demo según links |
+
+El CI (`.github/workflows/ci.yml`, Node 22) corre `npm ci` → `npm test` → `npm run build` (con
+`VITE_API_BASE_URL` desde secrets) y sube el `dist/` como artefacto por 7 días.
 
 ---
 
-## CI/CD
+## Decisiones de diseño
 
-GitHub Actions en `.github/workflows/ci.yml`:
-- Instala dependencias con `npm ci`
-- Corre los 26 tests con Vitest
-- Genera el build de producción con `VITE_API_BASE_URL` desde secrets
-- Sube el artefacto `dist/` por 7 días
-
-**Secret requerido en GitHub:** `VITE_API_BASE_URL`
+- **`createTheme` de Stitches en vez de un ThemeProvider de React**: los componentes ya usaban tokens
+  (`$accent`, `$syntaxFunction`…), así que cambiar de tema es cambiar una clase en `<html>`; ningún
+  componente se re-renderiza por el tema y los Portal de Radix (que montan en `<body>`) lo heredan solos.
+- **Paletas como datos puros** (`palettes.js`, sin Stitches): se testean sin DOM de estilos y un test
+  obliga a que cada tema defina todos los tokens, para que ninguno herede a medias el color de otro.
+- **Anti-parpadeo en el HTML, no en React**: el script inline pone la clase antes del primer pintado; las
+  reglas de los temas se inyectan al cargar el módulo, no al primer uso.
+- **Nombres de color, no de personajes**: Violeta y Ámbar nacen de los temas de
+  [CmdVault](https://github.com/NicolasAndresCL/CmdVault), pero en un portafolio profesional el nombre
+  describe la paleta.
+- **La versión sale de `package.json`**: Vite la inyecta (`import.meta.env.VITE_APP_VERSION`) y el footer
+  la muestra; no hay un número escrito a mano que se desincronice.
 
 ---
 
-## Vista referencial
+## Autor
 
-![Portafolio Preview](./public/portafolio.png)
+**Nicolás Andrés Cano Leal**\
+Backend Engineer → SRE | Python · Django · Kubernetes · Terraform · CI/CD
 
----
+- LinkedIn: [linkedin.com/in/nicolasandrescl](https://www.linkedin.com/in/nicolasandrescl/)
+- Portafolio: [nicolasandrescl.github.io](https://nicolasandrescl.github.io/)
+- Correo: [nicolas.cano.leal@gmail.com](mailto:nicolas.cano.leal@gmail.com)
 
-**Nicolás Andrés Cano Leal**
-LiveOps & BizOps | Python Backend Developer | Data Automation
+Portafolio Frontend v2.0.0 · 17 de octubre de 2026
