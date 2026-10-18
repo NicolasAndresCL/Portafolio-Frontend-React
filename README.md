@@ -1,14 +1,14 @@
 # Portafolio Frontend — la cara de mi portafolio, en React con tres temas
 
 [![CI](https://github.com/NicolasAndresCL/Portafolio-Frontend-React/actions/workflows/ci.yml/badge.svg)](https://github.com/NicolasAndresCL/Portafolio-Frontend-React/actions/workflows/ci.yml)
-![Versión](https://img.shields.io/badge/versi%C3%B3n-2.0.0-blue)
+![Versión](https://img.shields.io/badge/versi%C3%B3n-2.0.1-blue)
 ![React](https://img.shields.io/badge/react-19-61DAFB)
 ![Node](https://img.shields.io/badge/node-22-339933)
 
 | | |
 |---|---|
-| **Versión** | 2.0.0 |
-| **Fecha** | 17 de octubre de 2026 |
+| **Versión** | 2.0.1 |
+| **Fecha** | 18 de octubre de 2026 |
 | **Autor** | [Nicolás Andrés Cano Leal](#autor) |
 
 Interfaz desacoplada de mi portafolio técnico. Construida con **React 19**, **Vite 7**, **Stitches** y
@@ -42,7 +42,7 @@ src/
 │   ├── SkillsCarousel.jsx    # carrusel de habilidades
 │   ├── SkillCard.jsx         # tarjeta de habilidad (iconMap por nombre exacto)
 │   ├── ContactCard.jsx       # formulario conectado a POST /api/contacto/
-│   └── FooterCard.jsx        # redes sociales + versión (v2.0.0, desde package.json)
+│   └── FooterCard.jsx        # redes sociales + versión (desde package.json)
 ├── tests/                    # Vitest + RTL (35 tests)
 ├── App.jsx                   # recorre todas las páginas de la API; degrada si falla
 ├── main.jsx                  # entry point (Radix Theme sin fondo propio)
@@ -99,6 +99,8 @@ docker compose -p portafolio-temas down -v      # al terminar (borra el volumen 
 ## La interfaz
 
 - Hero con el nombre en el degradado del tema, avatar con brillo y descarga del CV (ES / EN).
+- Titular **Backend Engineer → SRE | Python · Django · Kubernetes · Terraform · CI/CD**: el mismo de
+  LinkedIn y del CV (`TituloCard.jsx`, `SobreMi.jsx` y `docs/cv/` del backend se cambian juntos).
 - Menú de navegación por secciones + Swagger y Admin.
 - Experiencia laboral, carrusel de proyectos y de habilidades, formulario de contacto.
 - **Si la API cae** (o falla un endpoint), el sitio igual se renderiza con lo disponible y muestra un aviso
@@ -164,4 +166,4 @@ Backend Engineer → SRE | Python · Django · Kubernetes · Terraform · CI/CD
 - Portafolio: [nicolasandrescl.github.io](https://nicolasandrescl.github.io/)
 - Correo: [nicolas.cano.leal@gmail.com](mailto:nicolas.cano.leal@gmail.com)
 
-Portafolio Frontend v2.0.0 · 17 de octubre de 2026
+Portafolio Frontend v2.0.1 · 18 de octubre de 2026
