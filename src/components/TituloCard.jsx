@@ -6,13 +6,13 @@ import profilePhoto from '@/assets/perfil-foto-nc.webp';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// 🎨 Estilos con tokens VSCode Dark+
+// 🎨 Estilos con tokens del tema activo
 const Section = styled('section', {
   width: '100%',
   paddingTop: '2.5rem',
   display: 'flex',
   justifyContent: 'center',
-  backgroundColor: '$background',
+  backgroundColor: 'transparent',
 });
 
 const Container = styled('div', {
@@ -30,8 +30,21 @@ const HeroCard = styled('div', {
   borderRadius: '$xl',
   backgroundColor: '$surface',
   border: '1px solid $border',
-  boxShadow: '$strong',
-}); 
+  boxShadow: '$glow',
+  transition: 'box-shadow 0.4s ease, background-color 0.4s ease',
+
+  // Filete superior con el degradado del tema: la firma visual de cada paleta.
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: '$5',
+    right: '$5',
+    height: '3px',
+    borderRadius: '0 0 $sm $sm',
+    backgroundImage: 'var(--colors-gradient)',
+  },
+});
 
 const ContentWrapper = styled(Flex, {
   position: 'relative',
@@ -73,7 +86,7 @@ const AvatarImage = styled('img', {
   height: '8rem',
   objectFit: 'cover',
   border: '4px solid $accent',
-  boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+  boxShadow: '0 0 0 6px $colors$glow, 0 0 40px $colors$glow',
   margin: '0 auto',
 });
 
@@ -92,9 +105,15 @@ const DownloadLink = styled('a', {
 const Title = styled('h1', {
   fontSize: '$xl',
   fontWeight: 'bold',
-  fontFamily: '$mono',
+  fontFamily: '$heading',
   color: '$syntaxFunction',
   lineHeight: 1.3,
+  '@bp2': { fontSize: '$xxl' },
+});
+
+// El nombre va con el degradado del tema (texto recortado al fondo).
+const Name = styled('span', {
+  textGradient: 'var(--colors-gradient)',
 });
 
 const Subtitle = styled('p', {
@@ -128,7 +147,7 @@ export default function TituloCard() {
           <ContentWrapper>
             <TextBlock>
               <Title>
-                Portafolio de <br />Nicolás Andrés Cano Leal
+                Portafolio de <br /><Name>Nicolás Andrés Cano Leal</Name>
               </Title>
               <Subtitle>
                 De APIs robustas a sistemas observables. Construyo para que escale y para que no se caiga.
@@ -147,7 +166,7 @@ export default function TituloCard() {
 
             <AvatarCard>
               <AvatarImage src={profilePhoto} alt="Foto de Nicolás Cano" />
-              <Title style={{ fontSize: '1.25rem' }}>Nicolás Cano</Title>
+              <Title style={{ fontSize: '1.25rem', marginTop: '1rem' }}>Nicolás Cano</Title>
               <Role>Backend Python Developer | Automation & Reliability</Role>
               <Description>
                 Arquitectura modular, escalabilidad y documentación impecable.

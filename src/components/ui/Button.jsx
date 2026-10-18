@@ -19,7 +19,7 @@ export const Button = styled('button', {
     variant: {
       primary: {
         backgroundColor: '$syntaxFunction',
-        color: 'white',
+        color: '$onAccent',
         '&:hover': { backgroundColor: '$accentHover' },
       },
       ghost: {
@@ -30,8 +30,8 @@ export const Button = styled('button', {
       },
       danger: {
         backgroundColor: '$syntaxError',
-        color: 'white',
-        '&:hover': { backgroundColor: '#d43c3c' },
+        color: '$onAccent',
+        '&:hover': { filter: 'brightness(0.9)' },
       },
     },
   },

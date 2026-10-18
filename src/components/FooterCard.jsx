@@ -2,9 +2,9 @@ import React from 'react';
 import { FaGithub, FaLinkedin, FaDev } from 'react-icons/fa';
 import { styled } from '@/stitches.config';
 
-// 🎨 Estilos con tokens VSCode Dark+
+// 🎨 Estilos con tokens del tema activo
 const Footer = styled('footer', {
-  backgroundColor: '$background',
+  backgroundColor: 'transparent',
   padding: '$5 $3',
   borderTop: '1px solid $border',
 });
@@ -20,7 +20,7 @@ const Wrapper = styled('div', {
 const Title = styled('h2', {
   fontSize: '$lg',
   fontWeight: 'bold',
-  fontFamily: '$mono',
+  fontFamily: '$heading',
   color: '$syntaxFunction',
 });
 
@@ -43,6 +43,8 @@ const Copyright = styled('p', {
   fontFamily: '$mono',
   color: '$muted',
 });
+
+const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 
 export default function FooterCard() {
   return (
@@ -78,7 +80,8 @@ export default function FooterCard() {
         </IconRow>
 
         <Copyright>
-          © 2025 Nicolás Andrés Cano Leal™. All Rights Reserved.
+          © 2025–2026 Nicolás Andrés Cano Leal™. All Rights Reserved.
+          {APP_VERSION && ` · v${APP_VERSION}`}
         </Copyright>
       </Wrapper>
     </Footer>

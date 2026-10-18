@@ -57,7 +57,7 @@ const FeedbackMessage = styled('p', {
   borderRadius: '$md',
   variants: {
     type: {
-      success: { color: '#4ade80', backgroundColor: 'rgba(74, 222, 128, 0.1)' },
+      success: { color: '$success', backgroundColor: 'rgba(74, 222, 128, 0.1)' },
       error:   { color: '$syntaxError', backgroundColor: 'rgba(220, 38, 38, 0.1)' },
     },
   },

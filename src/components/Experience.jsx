@@ -2,10 +2,10 @@ import React from 'react';
 import { styled } from '@/stitches.config';
 import ExperienceCard from './ExperienceCard';
 
-// 🎨 Estilos con tokens VSCode Dark+
+// 🎨 Estilos con tokens del tema activo
 const Section = styled('section', {
   width: '100%',
-  backgroundColor: '$background',
+  backgroundColor: 'transparent',
   padding: '$5 $3',
 });
 

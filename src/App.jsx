@@ -30,6 +30,8 @@ const Spinner = styled('div', {
 
 const ErrorBanner = styled('div', {
   padding: '$2 $4',
+  // Deja libre la esquina del selector de tema (fijo arriba a la derecha).
+  paddingRight: '4.5rem',
   color: '$syntaxError',
   backgroundColor: '$surface',
   borderBottom: '1px solid $border',

@@ -7,6 +7,7 @@ import CarruselProjects from './CarruselProjects';
 import SkillsCarousel from './SkillsCarousel';
 import ContactCard from './ContactCard';
 import FooterCard from './FooterCard';
+import ThemeSwitcher from './ThemeSwitcher';
 
 import { styled } from '@/stitches.config';
 
@@ -18,7 +19,7 @@ const Main = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$7',
-  backgroundColor: '$background',
+  backgroundColor: 'transparent',
 });
 
 const Section = styled('section', {
@@ -30,7 +31,7 @@ const Section = styled('section', {
 const SectionTitle = styled('h2', {
   fontSize: '$xl',
   fontWeight: 'bold',
-  fontFamily: '$mono',
+  fontFamily: '$heading',
   textAlign: 'center',
   backgroundColor: '$panel',
   border: '1px solid $border',
@@ -52,6 +53,9 @@ const PlaceholderText = styled('p', {
 export default function Home({ projects, skills, experiences }) {
   return (
     <Main>
+      {/* Selector de tema, fijo en la esquina superior derecha */}
+      <ThemeSwitcher />
+
       {/* Título principal */}
       <TituloCard />
 

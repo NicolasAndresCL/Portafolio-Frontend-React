@@ -15,11 +15,13 @@ globalStyles();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* Sin fondo propio: el fondo (y su aurora) lo pinta el tema de Stitches sobre <body>. */}
     <Theme
       accentColor="blue"
       grayColor="sand"
       radius="medium"
       scaling="95%"
+      hasBackground={false}
     >
       <App />
     </Theme>

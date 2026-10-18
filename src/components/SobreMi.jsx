@@ -12,7 +12,7 @@ const Content = styled('div', {
 const Title = styled('h2', {
   fontSize: '$xl',
   fontWeight: 'bold',
-  fontFamily: '$mono',
+  fontFamily: '$heading',
   color: '$syntaxFunction',
   marginBottom: '$2',
 });

@@ -8,10 +8,10 @@ import 'swiper/css/pagination';
 import { styled } from '@/stitches.config';
 import SkillCard from './SkillCard';
 
-// 🎨 Estilos con tokens VSCode Dark+
+// 🎨 Estilos con tokens del tema activo
 const Section = styled('section', {
   width: '100%',
-  backgroundColor: '$background',
+  backgroundColor: 'transparent',
   padding: '$5 $3',
 });
 

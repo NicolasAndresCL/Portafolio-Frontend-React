@@ -1,4 +1,7 @@
 import { createStitches } from '@stitches/react';
+import { THEMES, getTheme, DEFAULT_THEME, themeClass } from '@/themes/palettes';
+
+const baseTheme = getTheme(DEFAULT_THEME);
 
 export const {
   styled,
@@ -10,33 +13,9 @@ export const {
   keyframes,
 } = createStitches({
   theme: {
-    colors: {
-      // 🎨 VSCode Dark+ inspired palette
-      background: '#1e1e1e',
-      surface: '#252526',
-      panel: '#2d2d2d',
-      border: '#3c3c3c',
-      text: '#d4d4d4',
-      muted: '#a0a0a0',
-      accent: '#569cd6',
-      accentHover: '#4fa3d1',
-      success: '#6a9955',
-      warning: '#d7ba7d',
-      error: '#f44747',
-      shadow: 'rgba(0, 0, 0, 0.5)',
-
-      // 🧠 VSCode syntax-inspired tokens
-      syntaxFunction: '#569CD6',
-      syntaxString: '#CE9178',
-      syntaxKeyword: '#DCDCAA',
-      syntaxVariable: '#9CDCFE',
-      syntaxComment: '#6A9955',
-      syntaxError: '#F44747',
-    },
-    fonts: {
-      body: 'Segoe UI, Roboto, Oxygen, Ubuntu, sans-serif',
-      mono: 'Fira Code, Consolas, Menlo, monospace',
-    },
+    // Tema base (:root) = tema por defecto. Las paletas viven en src/themes/palettes.js.
+    colors: baseTheme.colors,
+    fonts: baseTheme.fonts,
     fontSizes: {
       xs: '0.75rem',
       sm: '0.875rem',
@@ -64,6 +43,7 @@ export const {
     shadows: {
       soft: '0 0 10px $colors$shadow',
       strong: '0 0 30px $colors$shadow',
+      glow: '0 0 0 1px $colors$border, 0 18px 50px -18px $colors$glow',
       inset: 'inset 0 1px 2px rgba(0,0,0,0.2)',
     },
   },
@@ -93,16 +73,30 @@ export const {
   },
 });
 
+// Una clase `theme-<key>` por tema, aplicada sobre <html> (ver applyTheme). Se lee
+// `.className` al cargar el módulo para que Stitches inyecte las reglas de inmediato: así la
+// clase que pone el script anti-parpadeo de index.html ya tiene estilos cuando monta React.
+export const themes = Object.fromEntries(
+  THEMES.map((t) => [t.key, createTheme(themeClass(t.key), { colors: t.colors, fonts: t.fonts })]),
+);
+Object.values(themes).forEach((t) => t.className);
+
 // 🌍 Estilos globales aplicables desde main.jsx
 export const globalStyles = globalCss({
   '*': { margin: 0, padding: 0, boxSizing: 'border-box' },
   html: {
     backgroundColor: '$background',
+    // Swiper lee esta variable para flechas y paginación.
+    '--swiper-theme-color': 'var(--colors-accent)',
     scrollBehavior: 'smooth',
     fontFamily: '$body',
   },
   body: {
     backgroundColor: '$background',
+    // Fondo de aurora del tema; fijo para que no se corte al hacer scroll largo.
+    backgroundImage: 'var(--colors-backdrop)',
+    backgroundAttachment: 'fixed',
+    transition: 'background-color 0.4s ease, color 0.4s ease',
     color: '$text',
     fontFamily: '$body',
     lineHeight: 1.6,
@@ -112,14 +106,14 @@ export const globalStyles = globalCss({
     MozOsxFontSmoothing: 'grayscale',
   },
   h1: {
-    fontFamily: '$mono',
+    fontFamily: '$heading',
     fontSize: '$xxl',
     fontWeight: 'bold',
     letterSpacing: '-0.02em',
     color: '$syntaxFunction',
   },
   h2: {
-    fontFamily: '$mono',
+    fontFamily: '$heading',
     fontSize: '$xl',
     fontWeight: 'bold',
     color: '$syntaxKeyword',
@@ -131,5 +125,13 @@ export const globalStyles = globalCss({
   },
   button: {
     fontFamily: '$body',
+  },
+  '::selection': {
+    backgroundColor: '$accent',
+    color: '$onAccent',
+  },
+  '@media (prefers-reduced-motion: reduce)': {
+    '*': { transition: 'none !important', animation: 'none !important' },
+    html: { scrollBehavior: 'auto' },
   },
 });
